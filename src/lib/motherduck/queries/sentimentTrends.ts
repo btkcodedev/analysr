@@ -1,6 +1,6 @@
 import { getConnection } from '../connection';
 import { getTableRef, buildLimitClause } from './utils';
-import type { SentimentTrend } from '../types';
+import type { SentimentTrend } from '../../../types/analytics';
 
 export async function fetchSentimentTrends(
   database: string,

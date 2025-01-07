@@ -20,3 +20,12 @@ export interface ProcessedAnalytics {
   textAnalysis: TextAnalysis;
 }
 export type { AspectAnalysis };
+
+export interface Dataset {
+  id: string;
+  name: string;
+  description: string;
+  source: string;
+  database: string;
+  tableName: string;
+}

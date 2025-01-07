@@ -1,7 +1,7 @@
 import { getConnection } from '../connection';
 import { getTableReference } from './utils';
-import type { KeyPhrase } from '../types';
-import type { Dataset } from '../../../data/datasets';
+import type { KeyPhrase } from '../../../types/analytics';
+import type { Dataset } from '../types';
 
 export async function fetchKeyPhrases(dataset: Dataset, limit: number | 'All'): Promise<KeyPhrase[]> {
   const connection = await getConnection();

@@ -1,13 +1,12 @@
 import { getConnection } from '../connection';
 import { getTableRef, buildSampleClause } from './utils';
-import type { TextAnalysis } from '../types';
 import type { DataLimit } from '../../../components/onboarding/DataSelectionStep';
 
 export async function fetchTextAnalysis(
   database: string,
   tableName: string,
   limit: DataLimit
-): Promise<TextAnalysis> {
+): Promise<any> {
   const connection = await getConnection();
   const tableRef = getTableRef(database, tableName);
   const sampleClause = buildSampleClause(tableRef, limit);

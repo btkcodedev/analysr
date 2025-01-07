@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
-import { Layers, Target, ArrowRight } from 'lucide-react';
-import { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CategorySelect from './CategorySelect';
-import DatabaseConnection from './DatabaseConnection';
-import { businessCategories } from '../../data/businessCategories';
-import { useOnboardingForm } from '../../hooks/useOnboardingForm';
-import Tooltip from '../common/Tooltip/Tooltip';
+import { motion } from "framer-motion";
+import { Layers, Target, ArrowRight } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CategorySelect from "./CategorySelect";
+import DatabaseConnection from "./DatabaseConnection";
+import { businessCategories } from "../../data/businessCategories";
+import { useOnboardingForm } from "../../hooks/useOnboardingForm";
+import Tooltip from "../common/Tooltip/Tooltip";
 
 export interface BusinessData {
   stack: string;
@@ -14,7 +14,7 @@ export interface BusinessData {
   interests: string;
   database: string;
   tableName: string;
-  limit: number | 'All';
+  limit: number | "All";
   motherduckToken?: string;
   groqToken?: string;
   airbyteToken?: string;
@@ -22,13 +22,16 @@ export interface BusinessData {
 }
 
 export default function OnboardingForm() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [, setIsGroqConnected] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
-  const { formData, updateFormData, isSubmitting, setIsSubmitting } = useOnboardingForm();
+  const [showOverlay, setShowOverlay] = useState(true);
+
+  const { formData, updateFormData, isSubmitting, setIsSubmitting } =
+    useOnboardingForm();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -37,29 +40,31 @@ const navigate = useNavigate();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const validateForm = () => {
     if (!formData.stack || !formData.substack) {
-      setValidationError('Please select a business category and specialization');
+      setValidationError(
+        "Please select a business category and specialization"
+      );
       return false;
     }
     if (!formData.motherduckToken) {
-      setValidationError('Please provide your MotherDuck token');
+      setValidationError("Please provide your MotherDuck token");
       return false;
     }
     if (!formData.database || !formData.tableName) {
-      setValidationError('Please select a database and table');
+      setValidationError("Please select a database and table");
       return false;
     }
     if (!formData.interests) {
-      setValidationError('Please specify your areas of interest');
+      setValidationError("Please specify your areas of interest");
       return false;
     }
     if (!isConnected) {
-      setValidationError('Please connect to the database first');
+      setValidationError("Please connect to the database first");
       return false;
     }
     return true;
@@ -68,12 +73,12 @@ const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError(null);
-    
+
     if (isSubmitting) return;
-    
+
     try {
       setIsSubmitting(true);
-      
+
       if (!validateForm()) {
         setIsSubmitting(false);
         return;
@@ -81,13 +86,15 @@ const navigate = useNavigate();
 
       const finalData = {
         ...formData,
-        limit: formData.limit
+        limit: formData.limit,
       };
 
-      navigate('/dashboard', { state: finalData });
+      navigate("/dashboard", { state: finalData });
     } catch (error) {
-      console.error('Form submission error:', error);
-      setValidationError(error instanceof Error ? error.message : 'An error occurred');
+      console.error("Form submission error:", error);
+      setValidationError(
+        error instanceof Error ? error.message : "An error occurred"
+      );
       setIsSubmitting(false);
     }
   };
@@ -97,12 +104,11 @@ const navigate = useNavigate();
     setValidationError(null);
   };
 
-
-  const handleLimitSelect = (limit: number | 'All') => {
-  if (limit !== undefined) {  // Simple undefined check
-    updateFormData({ limit });
-    setValidationError(null);
-  }
+  const handleLimitSelect = (limit: number | "All") => {
+    if (limit !== undefined) {
+      updateFormData({ limit });
+      setValidationError(null);
+    }
   };
 
   return (
@@ -114,7 +120,35 @@ const navigate = useNavigate();
       onSubmit={handleSubmit}
       className="space-y-8"
     >
-{validationError && (
+      {showOverlay && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="bg-white p-6 rounded-lg shadow-lg max-w-md text-center mb-60"
+          >
+            <h2 className="text-gray-700 font-bold mb-6 underline">One small thing</h2>
+            <p className="text-gray-700 mb-6">
+              Dear Amigo, Thank you for being here! <br/>Currently, this app only gives analytics based on reviews with schema: <br/>{`{ "review_text": "string", "stars": "number" }`}, <br/>Thus your motherduck tables must have this schema for this app to work. We're working on supporting additional schemas soon, Thank you for your cooperation! 🦆
+            </p>
+            <button
+              onClick={() => setShowOverlay(false)}
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+            >
+              Got it!
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {validationError && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -129,45 +163,51 @@ const navigate = useNavigate();
           <div className="flex items-center mb-2">
             <Layers className="mr-2 text-blue-400" />
             <span className="text-lg font-medium">Business Category</span>
-            <Tooltip 
-              content="Select your business type and specific focus area" 
+            <Tooltip
+              content="Select your business type and specific focus area"
               icon={true}
               className="ml-2"
             />
           </div>
-          <CategorySelect 
+          <CategorySelect
             categories={businessCategories}
             onSelect={(stack, substack) => {
               updateFormData({ stack, substack });
               setValidationError(null);
             }}
-            onFocusChange={(isFocused) => setFocusedField(isFocused ? 'category' : null)}
-            isActive={focusedField === 'category'}
+            onFocusChange={(isFocused) =>
+              setFocusedField(isFocused ? "category" : null)
+            }
+            isActive={focusedField === "category"}
           />
         </div>
-      
-      <DatabaseConnection
-        token={formData.motherduckToken}
-        onTokenChange={(token) => updateFormData({ motherduckToken: token })}
-        groqToken={formData.groqToken}
-        onGroqTokenChange={(token) => updateFormData({ groqToken: token })}
-        airbyteToken={formData.airbyteToken}
-        onAirbyteTokenChange={(token) => updateFormData({ airbyteToken: token })}
-        airbyteConnectionId={formData.airbyteConnectionId}
-        onAirbyteConnectionIdChange={(id) => updateFormData({ airbyteConnectionId: id })}
-        onConnectionStatusChange={setIsConnected}
-        onGroqStatusChange={setIsGroqConnected}
-        onDatabaseSelect={handleDatabaseSelect}
-        selectedLimit={formData.limit}
-        onLimitSelect={handleLimitSelect}
-      />
 
- <label className="block">
+        <DatabaseConnection
+          token={formData.motherduckToken}
+          onTokenChange={(token) => updateFormData({ motherduckToken: token })}
+          groqToken={formData.groqToken}
+          onGroqTokenChange={(token) => updateFormData({ groqToken: token })}
+          airbyteToken={formData.airbyteToken}
+          onAirbyteTokenChange={(token) =>
+            updateFormData({ airbyteToken: token })
+          }
+          airbyteConnectionId={formData.airbyteConnectionId}
+          onAirbyteConnectionIdChange={(id) =>
+            updateFormData({ airbyteConnectionId: id })
+          }
+          onConnectionStatusChange={setIsConnected}
+          onGroqStatusChange={setIsGroqConnected}
+          onDatabaseSelect={handleDatabaseSelect}
+          selectedLimit={formData.limit}
+          onLimitSelect={handleLimitSelect}
+        />
+
+        <label className="block">
           <div className="flex items-center mb-2">
             <Target className="mr-2 text-blue-400" />
             <span className="text-lg font-medium">Areas of Interest</span>
-            <Tooltip 
-              content="Specify aspects of your business you'd like to analyze" 
+            <Tooltip
+              content="Specify aspects of your business you'd like to analyze"
               icon={true}
               className="ml-2"
             />
@@ -179,12 +219,12 @@ const navigate = useNavigate();
               updateFormData({ interests: e.target.value });
               setValidationError(null);
             }}
-            onFocus={() => setFocusedField('interests')}
+            onFocus={() => setFocusedField("interests")}
             onBlur={() => setFocusedField(null)}
             className={`w-full px-4 py-3 rounded-lg bg-gray-800 border transition-all duration-200 ${
-              focusedField === 'interests' 
-                ? 'border-blue-500 ring-1 ring-blue-500/50' 
-                : 'border-gray-700 hover:border-gray-600'
+              focusedField === "interests"
+                ? "border-blue-500 ring-1 ring-blue-500/50"
+                : "border-gray-700 hover:border-gray-600"
             }`}
             rows={4}
             placeholder="What specific insights are you looking for?"

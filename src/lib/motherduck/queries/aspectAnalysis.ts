@@ -37,7 +37,7 @@ export async function fetchAspectAnalysis(
 
   const result = await connection.evaluateQuery(query);
   return result.data.toRows().map(row => ({
-    aspect: row.aspect,
+    aspect: row.aspect as string,
     avgRating: Number(row.avg_rating),
     mentionCount: Number(row.mention_count)
   }));

@@ -5,7 +5,7 @@ export interface SentimentTrend {
 }
 
 export interface AspectAnalysis {
-  description: string;
+  description?: string;
   aspect: string;
   avgRating: number;
   mentionCount: number;

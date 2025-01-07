@@ -11,8 +11,6 @@ export async function fetchAnalytics(
   database: string,
   tableName: string,
   limit: DataLimit,
-  stack?: string,
-  substack?: string
 ): Promise<ProcessedAnalytics> {
   const connection = await getConnection();
   if (!connection) {

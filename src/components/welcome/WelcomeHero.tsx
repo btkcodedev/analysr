@@ -36,6 +36,22 @@ export default function WelcomeHero() {
           {welcomeScreenData.welcomeSectionBottom}
         </p>
       </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+        className="w-20 mt-8 p-0 md:p-2 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 backdrop-blur-sm border border-white/5 rounded-xl"
+      >
+        <p className="text-gray-200" style={{fontSize: "12px"}}>
+          {welcomeScreenData.welcomeSectionVersionBottom}
+        </p>
+      </motion.div>
     </div>
   );
 }

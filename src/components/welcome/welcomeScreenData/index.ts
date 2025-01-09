@@ -1,4 +1,5 @@
 import { Zap, Target, TrendingUp } from "lucide-react";
+import { version } from '../../../../package.json';
 
 export const welcomeScreenData = {
   title: {
@@ -27,5 +28,11 @@ export const welcomeScreenData = {
   heroContent:
     "Unlock powerful insights from your customer reviews. Make informed decisions that drive growth and customer satisfaction.",
   welcomeSectionBottom: "Join to make data-driven decisions",
-  getStartedSectionBottom: "Join to make data-driven decisions",
+  welcomeSectionVersionBottom: `v ${version}`,
+  getStartedSection:{
+    topText: "Get Started",
+    middleTitle: "Transform Your Business Today",
+    bottomText: "Join to make data-driven decisions",
+    buttonText: "Get Started Now",
+  }
 };

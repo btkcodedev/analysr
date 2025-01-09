@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { welcomeScreenData } from "./welcomeScreenData";
 
 export default function GetStartedSection() {
   return (
@@ -18,7 +19,7 @@ export default function GetStartedSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400"
           >
             <Sparkles size={16} />
-            <span className="text-sm font-medium">Ready to get started?</span>
+            <span className="text-sm font-medium">{welcomeScreenData.getStartedSection.topText}</span>
           </motion.div>
 
           <motion.h2
@@ -27,7 +28,7 @@ export default function GetStartedSection() {
             transition={{ delay: 0.3 }}
             className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
           >
-            Transform Your Business Today
+            {welcomeScreenData.getStartedSection.middleTitle}
           </motion.h2>
 
           <motion.div
@@ -42,7 +43,7 @@ export default function GetStartedSection() {
             }}
             className="text-base md:text-lg text-gray-400"
           >
-            <p>Join to unlock insights that drive growth</p>
+            <p>{welcomeScreenData.getStartedSection.bottomText}</p>
           </motion.div>
 
           <motion.div
@@ -56,7 +57,7 @@ export default function GetStartedSection() {
                 whileTap={{ scale: 0.98 }}
                 className="group w-full flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl text-base md:text-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-500/20"
               >
-                <span>Get Started Now</span>
+                <span>{welcomeScreenData.getStartedSection.buttonText}</span>
                 <ArrowRight
                   className="group-hover:translate-x-1 transition-transform"
                   size={20}

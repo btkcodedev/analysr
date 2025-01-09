@@ -218,7 +218,7 @@ export default function OnboardingForm() {
             <Target className="mr-2 text-blue-400" />
             <span className="text-lg font-medium">Areas of Interest</span>
             <Tooltip
-              content="Specify aspects of your business you'd like to analyze"
+              content="Add your topic of interest for insights, Ex: 'Customer Satisfaction', will be processed by Groq"
               icon={true}
               className="ml-2"
             />

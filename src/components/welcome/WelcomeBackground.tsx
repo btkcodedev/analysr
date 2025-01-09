@@ -7,7 +7,7 @@ export default function WelcomeBackground() {
     const container = containerRef.current;
     if (!container) return;
 
-    const particles = Array.from({ length: 20 }, (_, i) => {
+    const particles = Array.from({ length: 20 }, (_, _i) => {
       const particle = document.createElement('div');
       particle.className = 'particle';
       particle.style.width = `${Math.random() * 100 + 50}px`;

@@ -33,27 +33,35 @@ export interface PositiveInsight {
   description: string;
 }
 
+export interface EmojiStat {
+  emoji: string;
+  count: number;
+  avgRating: number;
+}
+
+export interface PunctuationStats {
+  questionMarks: number;
+  questionAvgRating: number;
+  exclamationMarks: number;
+  exclamationAvgRating: number;
+}
+
+export interface CapsAnalysis {
+  stars: number;
+  capsPercentage: number;
+}
+
+export interface KeyPhrase {
+  text: string;
+  occurrences: number;
+  sentiment: number;
+}
+
 export interface TextAnalysis {
-  emojiStats: Array<{
-    emoji: string;
-    count: number;
-    avgRating: number;
-  }>;
-  punctuationStats: {
-    questionMarks: number;
-    questionAvgRating: number;
-    exclamationMarks: number;
-    exclamationAvgRating: number;
-  };
-  capsAnalysis: Array<{
-    stars: number;
-    capsPercentage: number;
-  }>;
-  keyPhrases: Array<{
-    text: string;
-    occurrences: number;
-    sentiment: number;
-  }>;
+  emojiStats: EmojiStat[];
+  punctuationStats: PunctuationStats;
+  capsAnalysis: CapsAnalysis[];
+  keyPhrases: KeyPhrase[];
 }
 
 export interface Analytics {

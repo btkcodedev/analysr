@@ -15,8 +15,8 @@ export interface SyncJobResponse {
   };
 }
 
-export interface AirbyteError {
-  message: string;
-  status: number;
-  failureReason?: string;
+export interface StatusState {
+  status: 'idle' | 'loading' | 'success' | 'error';
+  lastUpdated: Date | null;
+  message: string | null;
 }

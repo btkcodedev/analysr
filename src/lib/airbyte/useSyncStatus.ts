@@ -5,73 +5,69 @@ import type { StatusState } from '../../types/status';
 export function useSyncStatus(
   token?: string, 
   connectionId?: string,
-  jobType: 'sync' | 'reset' = 'sync'
+  jobType: 'sync' | 'reset' = 'sync',
+  isTriggered: boolean = false
 ): StatusState {
   const [status, setStatus] = useState<StatusState>({
-    status: 'loading',
+    status: 'stale',
     lastUpdated: null,
-    message: 'Initializing...'
+    message: ''
   });
 
   useEffect(() => {
-    if (!token || !connectionId) {
-      setStatus({
-        status: 'error',
-        lastUpdated: null,
-        message: 'Missing Airbyte configuration'
-      });
+    let isCancelled = false;
+  
+    if (!isTriggered || !token || !connectionId) {
       return;
     }
+    
+    const config = { bearerToken: token, connectionId };
+  
+    const checkConnection = async () => {
+      setStatus({
+        status: 'loading',
+        lastUpdated: new Date(),
+        message: `Checking connection...`,
+      });
 
-    let isSubscribed = true;
+      const isConnected = await checkConnectionStatus(config);
+      if (!isConnected) {
+        throw new Error('Invalid Airbyte connection');
+      }
+    };
 
-    const checkStatus = async () => {
-      try {
-        const config = { bearerToken: token, connectionId };
-        const isConnected = await checkConnectionStatus(config);
-        
-        if (!isConnected) {
-          throw new Error('Invalid Airbyte connection');
-        }
-
-        if (!isSubscribed) return;
-
-        setStatus({
-          status: 'loading',
-          lastUpdated: new Date(),
-          message: `Starting ${jobType} job...`
-        });
-
-        const jobResult = await triggerJob(config, jobType);
-
-        if (!isSubscribed) return;
-
-        if (jobResult.error) {
-          throw new Error(jobResult.error.message);
-        }
-
+    const triggerJobAsync = async () => {
+      if (isCancelled) return;
+      const jobResult = await triggerJob(config, jobType);
+      if (jobResult.error) {
+        throw new Error(jobResult.error.message);
+      }
+      if (!isCancelled) {
         setStatus({
           status: 'success',
           lastUpdated: new Date(),
-          message: `${jobType.charAt(0).toUpperCase() + jobType.slice(1)} job started: ${jobResult.jobId}`
-        });
-      } catch (err) {
-        if (!isSubscribed) return;
-
-        setStatus({
-          status: 'error',
-          lastUpdated: new Date(),
-          message: err instanceof Error ? err.message : 'Job failed'
+          message: `${jobType.charAt(0).toUpperCase() + jobType.slice(1)} job started: ${jobResult.jobId}`,
         });
       }
     };
 
-    checkStatus();
-
-    return () => {
-      isSubscribed = false;
+    const handleError = (err: Error) => {
+      if (!isCancelled) {
+        setStatus({
+          status: 'error',
+          lastUpdated: new Date(),
+          message: err.message,
+        });
+      }
     };
-  }, [token, connectionId, jobType]);
+
+    checkConnection().then(triggerJobAsync).catch(handleError);
+  
+    return () => {
+      isCancelled = true;
+    };
+  }, [token, connectionId, jobType, isTriggered]);
+  
 
   return status;
 }

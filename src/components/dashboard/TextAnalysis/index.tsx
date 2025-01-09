@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Type } from 'lucide-react';
-import type { TextAnalysis as TextAnalysisType } from '../../../lib/motherduck/types';
+import type { TextAnalysis as TextAnalysisType } from '../../../types/analytics';
 import EmojiAnalysis from './EmojiAnalysis';
 import PunctuationAnalysis from './PunctuationAnalysis';
 import CapsAnalysis from './CapsAnalysis';

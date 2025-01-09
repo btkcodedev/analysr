@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { EmojiStat } from '../../../lib/motherduck/types';
+import type { EmojiStat } from '../../../types/analytics';
 import Tooltip from '../../common/Tooltip/Tooltip';
 
 interface EmojiAnalysisProps {

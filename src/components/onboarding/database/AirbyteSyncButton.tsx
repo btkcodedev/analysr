@@ -17,12 +17,12 @@ export default function AirbyteSyncButton({ token, connectionId }: AirbyteSyncBu
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedJobType, setSelectedJobType] = useState<JobType>('sync');
   const [debugTimestamp, setDebugTimestamp] = useState<string | null>(null);
-  
-  // Pass the token and connectionId directly to useSyncStatus
+
   const syncStatus = useSyncStatus(
     isTriggered ? token : undefined,
     isTriggered ? connectionId : undefined,
-    selectedJobType
+    selectedJobType,
+    isTriggered
   );
 
   const handleTrigger = () => {
@@ -36,7 +36,6 @@ export default function AirbyteSyncButton({ token, connectionId }: AirbyteSyncBu
     setShowDropdown(false);
   };
 
-  // Reset triggered state when sync completes
   if (isTriggered && (syncStatus.status === 'success' || syncStatus.status === 'error')) {
     setIsTriggered(false);
   }
@@ -92,23 +91,13 @@ export default function AirbyteSyncButton({ token, connectionId }: AirbyteSyncBu
         </div>
       </div>
 
-      {(isTriggered || syncStatus.status === 'error') && (
+      {(syncStatus.status !== 'stale') && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-2"
         >
           <StatusIndicator {...syncStatus} />
-          {debugTimestamp && (
-            <DebugInfo
-              title="Airbyte Sync Status"
-              info={{
-                status: syncStatus.status,
-                details: syncStatus.message || `${selectedJobType} job in progress`,
-                timestamp: debugTimestamp
-              }}
-            />
-          )}
         </motion.div>
       )}
     </div>

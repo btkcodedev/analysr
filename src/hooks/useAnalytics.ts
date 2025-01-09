@@ -168,7 +168,7 @@ export function useAnalytics(
     
         updateLoadingStage(LOADING_STAGES.DATA, 'loading', 0);
         const [analyticsData, sentimentTrends] = await Promise.all([
-          fetchAnalytics(database, tableName, limit, stack, substack),
+          fetchAnalytics(database, tableName, limit),
           fetchSentimentTrends(database, tableName, limit),
         ]);
 

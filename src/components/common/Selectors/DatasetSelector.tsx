@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Database, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState } from 'react';
 import { datasets, type Dataset } from '../../data/datasets';
 
 interface DatasetSelectorProps {
@@ -30,7 +30,7 @@ export default function DatasetSelector({ selectedDataset, onSelect }: DatasetSe
           animate={{ opacity: 1, y: 0 }}
           className="absolute z-50 mt-2 w-64 bg-gray-800 rounded-lg border border-gray-700 shadow-xl"
         >
-          {datasets.map((dataset) => (
+          {datasets.map((dataset: { id: Key | null | undefined; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; description: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => (
             <button
               key={dataset.id}
               onClick={() => {

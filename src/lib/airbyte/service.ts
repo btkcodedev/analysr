@@ -1,39 +1,46 @@
 import type { AirbyteConfig, SyncJobResponse } from './types';
 
-const AIRBYTE_API_URL = 'https://api.airbyte.com/v1';
+const API_BASE_URL = '/api/airbyte';
 
 export async function checkConnectionStatus(config: AirbyteConfig): Promise<boolean> {
   try {
     if (!config.bearerToken) {
-      return false;
+      throw new Error('Bearer token is required');
     }
 
-    const response = await fetch(`${AIRBYTE_API_URL}/connections`, {
+    const response = await fetch(`${API_BASE_URL}/sources`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${config.bearerToken}`,
-        'Accept': 'application/json'
+        'authorization': `Bearer ${config.bearerToken}`,
+        'accept': 'application/json'
       }
     });
 
+    if (!response.ok) {
+      throw new Error(`Connection check failed: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
     return response.ok;
-  } catch {
+  } catch (error) {
+    console.error('Connection check error:', error);
     return false;
   }
 }
 
 export async function triggerJob(config: AirbyteConfig, jobType: 'sync' | 'reset'): Promise<SyncJobResponse> {
-  try {
-    if (!config.bearerToken || !config.connectionId) {
-      throw new Error('Missing required Airbyte configuration');
-    }
+  if (!config.bearerToken || !config.connectionId) {
+    throw new Error('Missing required Airbyte configuration');
+  }
 
-    const response = await fetch(`${AIRBYTE_API_URL}/jobs`, {
+  try {
+    const response = await fetch(`${API_BASE_URL}/jobs`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.bearerToken}`,
-        'Accept': 'application/json'
+        'authorization': `Bearer ${config.bearerToken}`,
+        'accept': 'application/json',
+        'content-type': 'application/json'
       },
       body: JSON.stringify({
         jobType,
@@ -49,7 +56,15 @@ export async function triggerJob(config: AirbyteConfig, jobType: 'sync' | 'reset
       );
     }
 
-    return await response.json();
+    const data = await response.json();
+    return {
+      jobId: data.jobId,
+      status: data.status,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      connectionId: config.connectionId,
+      error: data.error
+    };
   } catch (error) {
     console.error('Airbyte job error:', error);
     throw error;

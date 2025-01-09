@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Database } from 'lucide-react';
-import { motion } from 'framer-motion';
-import Tooltip from '../../common/Tooltip/Tooltip';
-import AirbyteSyncButton from './AirbyteSyncButton';
+import { useState } from "react";
+import { Database } from "lucide-react";
+import { motion } from "framer-motion";
+import Tooltip from "../../common/Tooltip/Tooltip";
+import AirbyteSyncButton from "./AirbyteSyncButton";
 
 interface AirbyteConfigProps {
   airbyteToken?: string;
@@ -15,7 +15,7 @@ export default function AirbyteConfig({
   airbyteToken,
   onAirbyteTokenChange,
   airbyteConnectionId,
-  onAirbyteConnectionIdChange
+  onAirbyteConnectionIdChange,
 }: AirbyteConfigProps) {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const showSyncButton = Boolean(airbyteToken && airbyteConnectionId);
@@ -29,28 +29,30 @@ export default function AirbyteConfig({
       <div className="flex items-center mb-2">
         <Database className="mr-2 text-purple-400" />
         <p className="text-lg font-medium">Optional Airbyte Configuration</p>
-        <Tooltip 
-          content="Configure Airbyte integration to sync data from external sources" 
+        <Tooltip
+          content="Configure Airbyte integration to sync data from external sources"
           icon={true}
           className="ml-2"
         />
       </div>
-      
+
       <div className="space-y-4">
         <div className="relative">
           <input
             type="password"
-            value={airbyteToken || ''}
+            value={airbyteToken || ""}
             onChange={(e) => onAirbyteTokenChange(e.target.value)}
-            onFocus={() => setFocusedField('token')}
+            onFocus={() => setFocusedField("token")}
             onBlur={() => setFocusedField(null)}
             placeholder="Airbyte bearer token (optional)"
             className={`w-full px-4 py-3 rounded-lg bg-gray-800/80 border transition-all duration-200 ${
-              focusedField === 'token' ? 'border-purple-500 ring-1 ring-purple-500/50' : 'border-gray-700'
+              focusedField === "token"
+                ? "border-purple-500 ring-1 ring-purple-500/50"
+                : "border-gray-700"
             }`}
           />
-          <Tooltip 
-            content="Your Airbyte authentication token" 
+          <Tooltip
+            content="Your Airbyte authentication token"
             icon={true}
             className="absolute right-3 top-1/2 -translate-y-1/2"
           />
@@ -59,24 +61,28 @@ export default function AirbyteConfig({
         <div className="relative">
           <input
             type="text"
-            value={airbyteConnectionId || ''}
+            value={airbyteConnectionId || ""}
             onChange={(e) => onAirbyteConnectionIdChange(e.target.value)}
-            onFocus={() => setFocusedField('connection')}
+            onFocus={() => setFocusedField("connection")}
             onBlur={() => setFocusedField(null)}
             placeholder="Airbyte connection ID (optional)"
             className={`w-full px-4 py-3 rounded-lg bg-gray-800/80 border transition-all duration-200 ${
-              focusedField === 'connection' ? 'border-purple-500 ring-1 ring-purple-500/50' : 'border-gray-700'
+              focusedField === "connection"
+                ? "border-purple-500 ring-1 ring-purple-500/50"
+                : "border-gray-700"
             }`}
           />
-          <Tooltip 
-            content="The unique identifier for your Airbyte connection" 
+          <Tooltip
+            content="The unique identifier for your Airbyte connection"
             icon={true}
             className="absolute right-3 top-1/2 -translate-y-1/2"
           />
         </div>
-
+        <p className="text-sm text-gray-400">
+          Optionally, trigger an Airbyte sync or reset for your connection.
+        </p>
         {showSyncButton && (
-          <AirbyteSyncButton 
+          <AirbyteSyncButton
             token={airbyteToken!}
             connectionId={airbyteConnectionId!}
           />

@@ -13,14 +13,13 @@ export function useConnectionStatus(inputToken: string | undefined): StatusState
   const setStoreToken = useTokenStore(state => state.setToken);
 
   useEffect(() => {
-    // Update token store whenever input token changes
     setStoreToken(inputToken || null);
   }, [inputToken, setStoreToken]);
 
   useEffect(() => {
     if (!inputToken) {
       setStatus({
-        status: 'error',
+        status: 'stale',
         lastUpdated: null,
         message: 'Please enter your MotherDuck token'
       });

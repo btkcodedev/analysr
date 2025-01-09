@@ -12,7 +12,7 @@ export function useGroqConnection(token?: string): StatusState {
   useEffect(() => {
     if (!token) {
       setStatus({
-        status: 'error',
+        status: 'stale',
         lastUpdated: null,
         message: 'Please enter your GROQ token'
       });
@@ -29,7 +29,6 @@ export function useGroqConnection(token?: string): StatusState {
           message: 'Verifying GROQ token...'
         }));
 
-        // Create a test client and make a simple request to verify the token
         const client = new Groq({
           apiKey: token,
           dangerouslyAllowBrowser: true

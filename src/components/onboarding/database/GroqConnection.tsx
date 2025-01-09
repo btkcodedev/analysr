@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Brain, Loader2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import StatusIndicator from '../../common/ProgressLoader/StatusIndicator';
-import Tooltip from '../../common/Tooltip/Tooltip';
-import { useGroqConnection } from '../../../lib/groq/useGroqConnection';
+import { useState, useEffect } from "react";
+import { Brain, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import StatusIndicator from "../../common/ProgressLoader/StatusIndicator";
+import Tooltip from "../../common/Tooltip/Tooltip";
+import { useGroqConnection } from "../../../lib/groq/useGroqConnection";
 
 interface GroqConnectionProps {
   token?: string;
@@ -12,20 +12,19 @@ interface GroqConnectionProps {
   onConnectionError: () => void;
 }
 
-export default function GroqConnection({ 
-  token, 
+export default function GroqConnection({
+  token,
   onTokenChange,
   onConnectionSuccess,
-  onConnectionError
+  onConnectionError,
 }: GroqConnectionProps) {
   const [isFocused, setIsFocused] = useState(false);
   const connectionStatus = useGroqConnection(token);
 
-  // Handle connection status changes
   useEffect(() => {
-    if (connectionStatus.status === 'success') {
+    if (connectionStatus.status === "success") {
       onConnectionSuccess();
-    } else if (connectionStatus.status === 'error') {
+    } else if (connectionStatus.status === "error") {
       onConnectionError();
     }
   }, [connectionStatus.status, onConnectionSuccess, onConnectionError]);
@@ -35,8 +34,8 @@ export default function GroqConnection({
       <div className="flex items-center mb-2">
         <Brain className="mr-2 text-purple-400" />
         <span className="text-lg font-medium">GROQ Configuration</span>
-        <Tooltip 
-          content="Add a GROQ token to enable AI-powered insights. This is optional but recommended for enhanced analytics" 
+        <Tooltip
+          content="Add a GROQ token to enable AI-powered insights. This is optional but recommended for enhanced analytics"
           icon={true}
           className="ml-2"
         />
@@ -46,17 +45,21 @@ export default function GroqConnection({
         <div className="relative">
           <input
             type="password"
-            value={token || ''}
+            value={token || ""}
             onChange={(e) => onTokenChange(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Enter your GROQ API key (optional)"
             className={`w-full px-4 py-3 pr-12 rounded-lg bg-gray-800/80 border transition-all duration-200 ${
-              isFocused ? 'border-purple-500 ring-1 ring-purple-500/50' : 'border-gray-700'
-            } ${connectionStatus.status === 'error' ? 'border-red-500/50' : ''}`}
+              isFocused
+                ? "border-purple-500 ring-1 ring-purple-500/50"
+                : "border-gray-700"
+            } ${
+              connectionStatus.status === "error" ? "border-red-500/50" : ""
+            }`}
           />
           <AnimatePresence>
-            {connectionStatus.status === 'loading' && (
+            {connectionStatus.status === "loading" && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -68,21 +71,22 @@ export default function GroqConnection({
             )}
           </AnimatePresence>
         </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={connectionStatus.status}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <StatusIndicator {...connectionStatus} />
-          </motion.div>
-        </AnimatePresence>
-
+        {connectionStatus.status !== "stale" && (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={connectionStatus.status}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <StatusIndicator {...connectionStatus} />
+            </motion.div>
+          </AnimatePresence>
+        )}
         <p className="text-sm text-gray-400">
-          GROQ integration enables AI-powered business insights and recommendations
+          GROQ integration enables AI-powered business insights and
+          recommendations
         </p>
       </div>
     </div>

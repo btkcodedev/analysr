@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { HelpCircle, AlertTriangle } from 'lucide-react';
-import type { PunctuationStats } from '../../../lib/motherduck/types';
+import type { PunctuationStats } from '../../../types/analytics';
 import Tooltip from '../../common/Tooltip/Tooltip';
 
 interface PunctuationAnalysisProps {

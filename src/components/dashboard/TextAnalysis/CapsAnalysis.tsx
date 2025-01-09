@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { CapsAnalysis as CapsAnalysisType } from '../../../lib/motherduck/types';
+import type { CapsAnalysis as CapsAnalysisType } from '../../../types/analytics';
 import Tooltip from '../../common/Tooltip/Tooltip';
 
 interface CapsAnalysisProps {

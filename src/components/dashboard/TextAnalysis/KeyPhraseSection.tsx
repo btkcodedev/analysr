@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageSquare } from 'lucide-react';
-import type { KeyPhrase } from '../../../lib/motherduck/types';
+import type { KeyPhrase } from '../../../types/analytics';;
 import Tooltip from '../../common/Tooltip/Tooltip';
 
 interface KeyPhraseSectionProps {

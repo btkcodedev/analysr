@@ -1,4 +1,4 @@
-export type DataStatus = 'loading' | 'success' | 'error' | 'stale';
+export type DataStatus = "loading" | "success" | "error" | "stale";
 
 export interface StatusConfig {
   color: string;

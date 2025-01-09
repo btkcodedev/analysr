@@ -1,7 +1,7 @@
-import MotherDuckConnection from './database/MotherDuckConnection';
-import GroqConnection from './database/GroqConnection';
-import AirbyteConfig from './database/AirbyteConfig';
-import type { DataLimit } from './DataSelectionStep';
+import MotherDuckConnection from "./database/MotherDuckConnection";
+import GroqConnection from "./database/GroqConnection";
+import AirbyteConfig from "./database/AirbyteConfig";
+import type { DataLimit } from "./DataSelectionStep";
 
 interface DatabaseConnectionProps {
   token: string | undefined;
@@ -19,8 +19,8 @@ interface DatabaseConnectionProps {
   onLimitSelect?: (limit: DataLimit) => void;
 }
 
-export default function DatabaseConnection({ 
-  token, 
+export default function DatabaseConnection({
+  token,
   onTokenChange,
   groqToken,
   onGroqTokenChange,
@@ -32,7 +32,7 @@ export default function DatabaseConnection({
   onGroqStatusChange,
   onDatabaseSelect,
   selectedLimit = 1000,
-  onLimitSelect = () => {}
+  onLimitSelect = () => {},
 }: DatabaseConnectionProps) {
   return (
     <div className="space-y-6">

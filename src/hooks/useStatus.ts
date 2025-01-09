@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { StatusState } from '../types/status';
+import { useState, useEffect } from "react";
+import type { StatusState } from "../types/status";
 
 const STALE_THRESHOLD = 5 * 60 * 1000; // 5 minutes
 
@@ -9,25 +9,25 @@ export function useStatus(
   lastUpdated: Date | null
 ): StatusState {
   const [state, setState] = useState<StatusState>({
-    status: 'loading',
-    lastUpdated: null
+    status: "loading",
+    lastUpdated: null,
   });
 
   useEffect(() => {
     if (error) {
       setState({
-        status: 'error',
+        status: "error",
         lastUpdated,
-        message: error
+        message: error,
       });
       return;
     }
 
     if (isLoading) {
       setState({
-        status: 'loading',
+        status: "loading",
         lastUpdated,
-        message: 'Loading...'
+        message: "Loading...",
       });
       return;
     }
@@ -35,17 +35,17 @@ export function useStatus(
     if (lastUpdated) {
       const isStale = Date.now() - lastUpdated.getTime() > STALE_THRESHOLD;
       setState({
-        status: isStale ? 'stale' : 'success',
+        status: isStale ? "stale" : "success",
         lastUpdated,
-        message: isStale ? 'Data might be outdated' : 'Data up to date'
+        message: isStale ? "Data might be outdated" : "Data up to date",
       });
       return;
     }
 
     setState({
-      status: 'loading',
+      status: "loading",
       lastUpdated: null,
-      message: 'Initializing...'
+      message: "Initializing...",
     });
   }, [isLoading, error, lastUpdated]);
 

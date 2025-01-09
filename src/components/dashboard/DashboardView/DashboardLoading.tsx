@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import ProgressLoader from '../../common/ProgressLoader';
-import DebugInfo from '../../common/DataInfo/DebugInfo';
+import { motion } from "framer-motion";
+import ProgressLoader from "../../common/ProgressLoader";
+import DebugInfo from "../../common/DataInfo/DebugInfo";
 
 interface DashboardLoadingProps {
   loadingState: any;
@@ -14,10 +14,17 @@ interface DashboardLoadingProps {
   onLoadComplete: () => void;
 }
 
-export default function DashboardLoading({ loadingState, debugInfo, onLoadComplete }: DashboardLoadingProps) {
+export default function DashboardLoading({
+  loadingState,
+  debugInfo,
+  onLoadComplete,
+}: DashboardLoadingProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col items-center justify-center p-6">
-      <ProgressLoader loadingState={loadingState} onLoadComplete={onLoadComplete} />
+      <ProgressLoader
+        loadingState={loadingState}
+        onLoadComplete={onLoadComplete}
+      />
       <DebugInfo title="Connection Status" info={debugInfo} />
       {debugInfo.groqStatus && (
         <motion.div

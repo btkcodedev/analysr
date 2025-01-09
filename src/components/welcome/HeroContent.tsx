@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { welcomeScreenData } from './welcomeScreenData/index';
 
 export default function HeroContent() {
   return (
@@ -9,8 +10,8 @@ export default function HeroContent() {
         transition={{ delay: 0.2 }}
         className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
       >
-        <span className="gradient-text">Transform</span> Your Business with{' '}
-        <span className="gradient-text">Analysr</span>
+        <span className="gradient-text">{welcomeScreenData.title.gradient1}</span> {welcomeScreenData.title.textgradient1}{' '}
+        <span className="gradient-text">{welcomeScreenData.title.gradient2}</span>
       </motion.h1>
 
       <motion.p
@@ -19,7 +20,7 @@ export default function HeroContent() {
         transition={{ delay: 0.3 }}
         className="text-lg md:text-xl text-gray-400"
       >
-        Unlock powerful insights from market data. Make informed decisions that drive growth and customer satisfaction.
+        {welcomeScreenData.heroContent}
       </motion.p>
     </div>
   );

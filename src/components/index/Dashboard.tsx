@@ -1,14 +1,14 @@
-import { useLocation, Navigate } from 'react-router-dom';
-import type { BusinessData } from '../onboarding/OnboardingForm';
-import DashboardContent from '../dashboard/DashboardView/DashboardContent';
-import DashboardError from '../dashboard/DashboardView/DashboardError';
-import DashboardLoading from '../dashboard/DashboardView/DashboardLoading';
-import StatusIndicator from '../common/ProgressLoader/StatusIndicator';
-import MockDataBanner from '../common/DataInfo/MockDataBanner';
-import NoDataFallback from '../common/DataInfo/NoDataFallback';
-import { useAnalytics } from '../../hooks/useAnalytics';
-import { useStatus } from '../../hooks/useStatus';
-import { useTokenStore } from '../../lib/motherduck/tokenStore';
+import { useLocation, Navigate } from "react-router-dom";
+import type { BusinessData } from "../onboarding/OnboardingForm";
+import DashboardContent from "../dashboard/DashboardView/DashboardContent";
+import DashboardError from "../dashboard/DashboardView/DashboardError";
+import DashboardLoading from "../dashboard/DashboardView/DashboardLoading";
+import StatusIndicator from "../common/ProgressLoader/StatusIndicator";
+import MockDataBanner from "../common/DataInfo/MockDataBanner";
+import NoDataFallback from "../common/DataInfo/NoDataFallback";
+import { useAnalytics } from "../../hooks/useAnalytics";
+import { useStatus } from "../../hooks/useStatus";
+import { useTokenStore } from "../../lib/motherduck/tokenStore";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -18,7 +18,7 @@ export default function Dashboard() {
   if (!token || !businessData) {
     return <Navigate to="/onboarding" replace />;
   }
-  
+
   const {
     data: analyticsData,
     loading,
@@ -26,11 +26,11 @@ export default function Dashboard() {
     lastFetchTime,
     isMockData,
     loadingState,
-    queryStats
+    queryStats,
   } = useAnalytics(
     businessData.database,
     businessData.tableName,
-    businessData.limit || 'All',
+    businessData.limit || "All",
     businessData.stack,
     businessData.substack,
     businessData.groqToken
@@ -40,21 +40,23 @@ export default function Dashboard() {
 
   if (loading && loadingState) {
     return (
-      <DashboardLoading 
-        loadingState={loadingState} 
+      <DashboardLoading
+        loadingState={loadingState}
         debugInfo={{
           status: statusState.status,
           details: `Loading analytics data for ${businessData?.stack} - ${businessData?.substack}`,
           timestamp: new Date().toISOString(),
-          queryCount: queryStats?.count
+          queryCount: queryStats?.count,
         }}
-        onLoadComplete={() => {}} 
+        onLoadComplete={() => {}}
       />
     );
   }
 
   if (error) {
-    return <DashboardError error={error} debugInfo="Error fetching analytics data" />;
+    return (
+      <DashboardError error={error} debugInfo="Error fetching analytics data" />
+    );
   }
 
   if (!analyticsData || !analyticsData.totalReviews) {
@@ -63,7 +65,9 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto">
           <StatusIndicator {...statusState} />
           <div className="mt-8">
-            <NoDataFallback message={`No analytics data available for ${businessData?.stack} - ${businessData?.substack}`} />
+            <NoDataFallback
+              message={`No analytics data available for ${businessData?.stack} - ${businessData?.substack}`}
+            />
           </div>
         </div>
       </div>
@@ -77,8 +81,8 @@ export default function Dashboard() {
         <StatusIndicator {...statusState} />
       </div>
 
-      <DashboardContent 
-        analyticsData={analyticsData} 
+      <DashboardContent
+        analyticsData={analyticsData}
         stack={businessData.stack}
         substack={businessData.substack}
         groqToken={businessData.groqToken}

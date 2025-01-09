@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import type { BusinessCategory, SubStack } from '../../data/businessCategories';
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import type { BusinessCategory, SubStack } from "../../data/businessCategories";
 
 interface CategorySelectProps {
   categories: BusinessCategory[];
@@ -10,29 +10,35 @@ interface CategorySelectProps {
   isActive?: boolean;
 }
 
-export default function CategorySelect({ 
-  categories, 
+export default function CategorySelect({
+  categories,
   onSelect,
   onFocusChange,
-  isActive
+  isActive,
 }: CategorySelectProps) {
-  const [selectedCategory, setSelectedCategory] = useState<BusinessCategory | null>(null);
-  const [selectedSubstack, setSelectedSubstack] = useState<SubStack | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<BusinessCategory | null>(null);
+  const [selectedSubstack, setSelectedSubstack] = useState<SubStack | null>(
+    null
+  );
   const [isMainOpen, setIsMainOpen] = useState(false);
   const [isSubOpen, setIsSubOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setIsMainOpen(false);
         setIsSubOpen(false);
         onFocusChange?.(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onFocusChange]);
 
   const handleCategorySelect = (category: BusinessCategory) => {
@@ -65,16 +71,22 @@ export default function CategorySelect({
           }}
           className={`w-full px-4 py-3.5 rounded-lg bg-gray-800/80 border transition-all duration-200 flex items-center justify-between ${
             isActive || isMainOpen
-              ? 'border-blue-500 ring-1 ring-blue-500/50'
-              : 'border-gray-700 hover:border-gray-600'
+              ? "border-blue-500 ring-1 ring-blue-500/50"
+              : "border-gray-700 hover:border-gray-600"
           }`}
         >
           <span className="text-gray-300">
-            {selectedCategory ? selectedCategory.label : 'Select Business Category'}
+            {selectedCategory
+              ? selectedCategory.label
+              : "Select Business Category"}
           </span>
-          <ChevronDown className={`transition-transform duration-200 ${isMainOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown
+            className={`transition-transform duration-200 ${
+              isMainOpen ? "rotate-180" : ""
+            }`}
+          />
         </motion.button>
-        
+
         {isMainOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -83,7 +95,7 @@ export default function CategorySelect({
           >
             {categories.map((category) => (
               <motion.button
-                whileHover={{ backgroundColor: 'rgba(55, 65, 81, 1)' }}
+                whileHover={{ backgroundColor: "rgba(55, 65, 81, 1)" }}
                 type="button"
                 key={`category-${category.id}`}
                 onClick={() => handleCategorySelect(category)}
@@ -108,16 +120,22 @@ export default function CategorySelect({
             }}
             className={`w-full px-4 py-3.5 rounded-lg bg-gray-800/80 border transition-all duration-200 flex items-center justify-between ${
               isActive || isSubOpen
-                ? 'border-blue-500 ring-1 ring-blue-500/50'
-                : 'border-gray-700 hover:border-gray-600'
+                ? "border-blue-500 ring-1 ring-blue-500/50"
+                : "border-gray-700 hover:border-gray-600"
             }`}
           >
             <span className="text-gray-300">
-              {selectedSubstack ? selectedSubstack.label : 'Select Specialization'}
+              {selectedSubstack
+                ? selectedSubstack.label
+                : "Select Specialization"}
             </span>
-            <ChevronDown className={`transition-transform duration-200 ${isSubOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown
+              className={`transition-transform duration-200 ${
+                isSubOpen ? "rotate-180" : ""
+              }`}
+            />
           </motion.button>
-          
+
           {isSubOpen && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -126,7 +144,7 @@ export default function CategorySelect({
             >
               {selectedCategory.substacks.map((substack) => (
                 <motion.button
-                  whileHover={{ backgroundColor: 'rgba(55, 65, 81, 1)' }}
+                  whileHover={{ backgroundColor: "rgba(55, 65, 81, 1)" }}
                   type="button"
                   key={`substack-${selectedCategory.id}-${substack.id}`}
                   onClick={() => handleSubstackSelect(substack)}

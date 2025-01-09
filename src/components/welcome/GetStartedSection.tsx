@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function GetStartedSection() {
   return (
@@ -20,7 +20,7 @@ export default function GetStartedSection() {
             <Sparkles size={16} />
             <span className="text-sm font-medium">Ready to get started?</span>
           </motion.div>
-          
+
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -29,15 +29,21 @@ export default function GetStartedSection() {
           >
             Transform Your Business Today
           </motion.h2>
-          
-          <motion.p
+
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
             className="text-base md:text-lg text-gray-400"
           >
-            Join to unlock insights that drive growth
-          </motion.p>
+            <p>Join to unlock insights that drive growth</p>
+          </motion.div>
 
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -51,7 +57,10 @@ export default function GetStartedSection() {
                 className="group w-full flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl text-base md:text-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-500/20"
               >
                 <span>Get Started Now</span>
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                <ArrowRight
+                  className="group-hover:translate-x-1 transition-transform"
+                  size={20}
+                />
               </motion.button>
             </Link>
           </motion.div>

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { BeakerIcon } from 'lucide-react';
+import { motion } from "framer-motion";
+import { BeakerIcon } from "lucide-react";
 
 export default function MockDataBanner() {
   return (

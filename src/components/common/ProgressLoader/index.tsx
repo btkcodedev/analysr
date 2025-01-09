@@ -1,13 +1,16 @@
-import { motion } from 'framer-motion';
-import LoadingStage from './LoadingStage';
-import type { LoadingState } from '../../../lib/motherduck/types';
+import { motion } from "framer-motion";
+import LoadingStage from "./LoadingStage";
+import type { LoadingState } from "../../../hooks/useAnalytics";
 
 interface ProgressLoaderProps {
   loadingState: LoadingState;
   onLoadComplete?: () => void;
 }
 
-export default function ProgressLoader({ loadingState, onLoadComplete }: ProgressLoaderProps) {
+export default function ProgressLoader({
+  loadingState,
+  onLoadComplete,
+}: ProgressLoaderProps) {
   if (loadingState.isComplete && onLoadComplete) {
     onLoadComplete();
   }

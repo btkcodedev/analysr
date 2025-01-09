@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { Terminal } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Terminal } from "lucide-react";
 
 interface DebugInfoProps {
   title: string;
@@ -13,7 +13,7 @@ interface DebugInfoProps {
 
 export default function DebugInfo({ title, info }: DebugInfoProps) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="mt-8 w-full max-w-2xl bg-gray-800/50 rounded-lg p-4 font-mono text-sm"

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Database, ListFilter } from 'lucide-react';
-import { motion } from 'framer-motion';
-import DataLimitSelector from '../common/Selectors/DataLimitSelector';
-import Tooltip from '../common/Tooltip/Tooltip';
-import { getConnection } from '../../lib/motherduck/connection';
-import type { LimitOption } from '../common/Selectors/DataLimitSelector';
+import { useState, useEffect } from "react";
+import { Database, ListFilter } from "lucide-react";
+import { motion } from "framer-motion";
+import DataLimitSelector from "../common/Selectors/DataLimitSelector";
+import Tooltip from "../common/Tooltip/Tooltip";
+import { getConnection } from "../../lib/motherduck/connection";
+import type { LimitOption } from "../common/Selectors/DataLimitSelector";
 
-export type DataLimit = number | 'All';
+export type DataLimit = number | "All";
 
 interface DataSelectionStepProps {
   selectedLimit: DataLimit;
@@ -17,7 +17,7 @@ interface DataSelectionStepProps {
 }
 
 const DEFAULT_LIMITS: DataLimit[] = [
-  'All',
+  "All",
   10000,
   5000,
   2000,
@@ -25,8 +25,8 @@ const DEFAULT_LIMITS: DataLimit[] = [
   500,
   100,
   50,
-  10
-]
+  10,
+];
 
 export default function DataSelectionStep({
   selectedLimit,
@@ -36,9 +36,9 @@ export default function DataSelectionStep({
   isActive,
 }: DataSelectionStepProps) {
   const [databases, setDatabases] = useState<string[]>([]);
-  const [selectedDb, setSelectedDb] = useState<string>('');
+  const [selectedDb, setSelectedDb] = useState<string>("");
   const [tables, setTables] = useState<string[]>([]);
-  const [selectedTable, setSelectedTable] = useState<string>('');
+  const [selectedTable, setSelectedTable] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [availableLimits, setAvailableLimits] =
@@ -59,8 +59,8 @@ export default function DataSelectionStep({
 
         setDatabases(dbList);
       } catch (err) {
-        console.error('Error fetching databases:', err);
-        setError('Failed to fetch databases');
+        console.error("Error fetching databases:", err);
+        setError("Failed to fetch databases");
       } finally {
         setLoading(false);
       }
@@ -79,7 +79,7 @@ export default function DataSelectionStep({
       try {
         const conn = await getConnection();
         await conn.evaluateQuery(`USE ${selectedDb}`);
-        const result = await conn.evaluateQuery('SHOW TABLES');
+        const result = await conn.evaluateQuery("SHOW TABLES");
         const tableList = result.data
           .toRows()
           .map((row) => String(row.table_name || row.name))
@@ -87,8 +87,8 @@ export default function DataSelectionStep({
           .sort();
         setTables(tableList);
       } catch (err) {
-        console.error('Error fetching tables:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch tables');
+        console.error("Error fetching tables:", err);
+        setError(err instanceof Error ? err.message : "Failed to fetch tables");
       } finally {
         setLoading(false);
       }
@@ -104,58 +104,56 @@ export default function DataSelectionStep({
         setAvailableLimits(DEFAULT_LIMITS);
         return;
       }
-  
+
       setLoading(true);
       setError(null);
-  
+
       try {
         const conn = await getConnection();
         await conn.evaluateQuery(`USE ${selectedDb}`);
-  
+
         const countResult = await conn.evaluateQuery(`
           SELECT COUNT(*) as total_rows 
           FROM ${selectedTable}
         `);
-  
+
         const total = Number(countResult.data.toRows()[0]?.total_rows || 0);
         setTotalRows(total);
-  
+
         if (total) {
           const customLimits: LimitOption[] = DEFAULT_LIMITS.filter(
             (limit) =>
-              limit === 'All' || (typeof limit === 'number' && limit <= total)
+              limit === "All" || (typeof limit === "number" && limit <= total)
           );
-  
-          if (!customLimits.includes('All')) {
-            customLimits.push('All');
+
+          if (!customLimits.includes("All")) {
+            customLimits.push("All");
           }
-  
+
           setAvailableLimits(customLimits);
-          if (typeof selectedLimit === 'number' && selectedLimit > total) {
+          if (typeof selectedLimit === "number" && selectedLimit > total) {
             onLimitSelect(Math.min(total, 10000));
           }
-          
         }
       } catch (err) {
-        console.error('Error fetching row count:', err);
+        console.error("Error fetching row count:", err);
         setError(
           err instanceof Error
             ? err.message
-            : 'Failed to fetch table information'
+            : "Failed to fetch table information"
         );
       } finally {
         setLoading(false);
       }
     };
-  
+
     updateLimits();
   }, [selectedDb, selectedTable, onLimitSelect]);
-  
 
   const handleDatabaseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const db = e.target.value;
     setSelectedDb(db);
-    setSelectedTable('');
+    setSelectedTable("");
     setTotalRows(null);
   };
 
@@ -168,16 +166,12 @@ export default function DataSelectionStep({
   };
 
   const handleLimitChange = (newLimit: LimitOption) => {
-    if (
-      newLimit === 'All' ||
-      (totalRows !== null && newLimit <= totalRows)
-    ) {
+    if (newLimit === "All" || (totalRows !== null && newLimit <= totalRows)) {
       onLimitSelect(newLimit);
     } else if (totalRows !== null) {
       onLimitSelect(Math.min(totalRows, 10000));
     }
   };
-  
 
   return (
     <div className="space-y-6">
@@ -209,9 +203,9 @@ export default function DataSelectionStep({
             disabled={loading}
             className={`w-full px-4 py-3 rounded-lg bg-gray-800/80 border transition-all duration-200 ${
               isActive
-                ? 'border-blue-500 ring-1 ring-blue-500/50'
-                : 'border-gray-700'
-            } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                ? "border-blue-500 ring-1 ring-blue-500/50"
+                : "border-gray-700"
+            } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <option value="">Select Database</option>
             {databases.map((db) => (
@@ -228,9 +222,9 @@ export default function DataSelectionStep({
               disabled={loading}
               className={`w-full px-4 py-3 rounded-lg bg-gray-800/80 border transition-all duration-200 ${
                 isActive
-                  ? 'border-blue-500 ring-1 ring-blue-500/50'
-                  : 'border-gray-700'
-              } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  ? "border-blue-500 ring-1 ring-blue-500/50"
+                  : "border-gray-700"
+              } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               <option value="">Select Table</option>
               {tables.map((table) => (
@@ -267,7 +261,7 @@ export default function DataSelectionStep({
             isActive={isActive}
             availableLimits={availableLimits}
             onFocusChange={(isFocused) =>
-              onFocusChange?.(isFocused ? 'limit' : null)
+              onFocusChange?.(isFocused ? "limit" : null)
             }
           />
         </div>

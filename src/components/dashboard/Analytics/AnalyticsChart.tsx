@@ -1,12 +1,20 @@
-import { motion } from 'framer-motion';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { motion } from "framer-motion";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const mockData = [
-  { month: 'Jan', rating: 3.2 },
-  { month: 'Feb', rating: 3.5 },
-  { month: 'Mar', rating: 3.8 },
-  { month: 'Apr', rating: 4.0 },
-  { month: 'May', rating: 4.2 }
+  { month: "Jan", rating: 3.2 },
+  { month: "Feb", rating: 3.5 },
+  { month: "Mar", rating: 3.8 },
+  { month: "Apr", rating: 4.0 },
+  { month: "May", rating: 4.2 },
 ];
 
 export default function AnalyticsChart() {
@@ -25,10 +33,10 @@ export default function AnalyticsChart() {
             <YAxis stroke="#9CA3AF" domain={[0, 5]} />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1F2937',
-                border: 'none',
-                borderRadius: '0.5rem',
-                color: '#F3F4F6'
+                backgroundColor: "#1F2937",
+                border: "none",
+                borderRadius: "0.5rem",
+                color: "#F3F4F6",
               }}
             />
             <Line
@@ -36,7 +44,7 @@ export default function AnalyticsChart() {
               dataKey="rating"
               stroke="#3B82F6"
               strokeWidth={2}
-              dot={{ fill: '#3B82F6' }}
+              dot={{ fill: "#3B82F6" }}
             />
           </LineChart>
         </ResponsiveContainer>

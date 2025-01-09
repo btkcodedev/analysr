@@ -1,3 +1,5 @@
+import { LOADING_STAGES } from "../hooks/useAnalytics";
+
 export interface SentimentTrend {
   month: string;
   avgRating: number;
@@ -75,3 +77,5 @@ export interface Analytics {
   textAnalysis: TextAnalysis;
   sentimentTrends: SentimentTrend[];
 }
+
+export type LoadingStageId = (typeof LOADING_STAGES)[keyof typeof LOADING_STAGES];

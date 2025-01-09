@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import { motion } from "framer-motion";
+import { LucideIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
@@ -9,7 +9,13 @@ interface StatCardProps {
   index: number;
 }
 
-export default function StatCard({ title, value, icon: Icon, color, index }: StatCardProps) {
+export default function StatCard({
+  title,
+  value,
+  icon: Icon,
+  color,
+  index,
+}: StatCardProps) {
   return (
     <motion.div
       initial={{ scale: 0.9, opacity: 0 }}

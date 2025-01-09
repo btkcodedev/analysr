@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Key, Database } from 'lucide-react';
+import { useState } from "react";
+import { Key, Database } from "lucide-react";
 
 interface TokenConfigStepProps {
   onConfigSubmit: (config: {
@@ -9,11 +9,13 @@ interface TokenConfigStepProps {
   }) => void;
 }
 
-export default function TokenConfigStep({ onConfigSubmit }: TokenConfigStepProps) {
+export default function TokenConfigStep({
+  onConfigSubmit,
+}: TokenConfigStepProps) {
   const [config, setConfig] = useState({
-    motherduckToken: '',
-    airbyteToken: '',
-    airbyteConnectionId: ''
+    motherduckToken: "",
+    airbyteToken: "",
+    airbyteConnectionId: "",
   });
 
   const handleChange = () => {
@@ -31,7 +33,7 @@ export default function TokenConfigStep({ onConfigSubmit }: TokenConfigStepProps
           type="password"
           value={config.motherduckToken}
           onChange={(e) => {
-            setConfig(prev => ({ ...prev, motherduckToken: e.target.value }));
+            setConfig((prev) => ({ ...prev, motherduckToken: e.target.value }));
             handleChange();
           }}
           placeholder="Enter your MotherDuck token"
@@ -49,7 +51,7 @@ export default function TokenConfigStep({ onConfigSubmit }: TokenConfigStepProps
             type="password"
             value={config.airbyteToken}
             onChange={(e) => {
-              setConfig(prev => ({ ...prev, airbyteToken: e.target.value }));
+              setConfig((prev) => ({ ...prev, airbyteToken: e.target.value }));
               handleChange();
             }}
             placeholder="Enter your Airbyte bearer token"
@@ -59,7 +61,10 @@ export default function TokenConfigStep({ onConfigSubmit }: TokenConfigStepProps
             type="text"
             value={config.airbyteConnectionId}
             onChange={(e) => {
-              setConfig(prev => ({ ...prev, airbyteConnectionId: e.target.value }));
+              setConfig((prev) => ({
+                ...prev,
+                airbyteConnectionId: e.target.value,
+              }));
               handleChange();
             }}
             placeholder="Enter your Airbyte connection ID"
@@ -69,7 +74,10 @@ export default function TokenConfigStep({ onConfigSubmit }: TokenConfigStepProps
       </div>
 
       <div className="text-sm text-gray-400">
-        <p>These configurations are optional. Leave empty to use default settings.</p>
+        <p>
+          These configurations are optional. Leave empty to use default
+          settings.
+        </p>
       </div>
     </div>
   );

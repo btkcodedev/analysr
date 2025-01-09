@@ -1,11 +1,13 @@
-import { motion } from 'framer-motion';
-import { Cat } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Cat } from "lucide-react";
 
 interface NoDataFallbackProps {
   message?: string;
 }
 
-export default function NoDataFallback({ message = "No data available yet" }: NoDataFallbackProps) {
+export default function NoDataFallback({
+  message = "No data available yet",
+}: NoDataFallbackProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -15,18 +17,18 @@ export default function NoDataFallback({ message = "No data available yet" }: No
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ 
+        transition={{
           type: "spring",
           stiffness: 260,
           damping: 20,
-          delay: 0.1 
+          delay: 0.1,
         }}
         className="relative"
       >
         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full" />
         <Cat className="w-24 h-24 text-blue-400 relative z-10" />
       </motion.div>
-      
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

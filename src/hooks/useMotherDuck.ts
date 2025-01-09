@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { getConnection, closeConnection } from '../lib/motherduck/connection';
+import { useState, useEffect } from "react";
+import { getConnection, closeConnection } from "../lib/motherduck/connection";
 
 export function useMotherDuck() {
   const [isConnected, setIsConnected] = useState(false);
@@ -8,47 +8,49 @@ export function useMotherDuck() {
     isComplete: false,
     stages: [
       {
-        id: 'connection',
-        label: 'Connecting to MotherDuck',
-        status: 'pending',
-        progress: 0
-      }
-    ]
+        id: "connection",
+        label: "Connecting to MotherDuck",
+        status: "pending",
+        progress: 0,
+      },
+    ],
   });
 
   useEffect(() => {
     const connect = async () => {
       try {
-        setLoadingState(prev => ({
+        setLoadingState((prev) => ({
           ...prev,
-          stages: prev.stages.map(stage => 
-            stage.id === 'connection' 
-              ? { ...stage, status: 'loading', progress: 50 }
+          stages: prev.stages.map((stage) =>
+            stage.id === "connection"
+              ? { ...stage, status: "loading", progress: 50 }
               : stage
-          )
+          ),
         }));
 
         await getConnection();
-        
-        setLoadingState(prev => ({
+
+        setLoadingState((prev) => ({
           isComplete: true,
-          stages: prev.stages.map(stage => 
-            stage.id === 'connection'
-              ? { ...stage, status: 'complete', progress: 100 }
+          stages: prev.stages.map((stage) =>
+            stage.id === "connection"
+              ? { ...stage, status: "complete", progress: 100 }
               : stage
-          )
+          ),
         }));
-        
+
         setIsConnected(true);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to connect to MotherDuck');
-        setLoadingState(prev => ({
+        setError(
+          err instanceof Error ? err.message : "Failed to connect to MotherDuck"
+        );
+        setLoadingState((prev) => ({
           ...prev,
-          stages: prev.stages.map(stage =>
-            stage.id === 'connection'
-              ? { ...stage, status: 'error', progress: 0 }
+          stages: prev.stages.map((stage) =>
+            stage.id === "connection"
+              ? { ...stage, status: "error", progress: 0 }
               : stage
-          )
+          ),
         }));
       }
     };

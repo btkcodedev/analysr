@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
-import { Brain, Lightbulb, TrendingUp, Crown } from 'lucide-react';
-import { useState } from 'react';
-import Tooltip from '../../common/Tooltip/Tooltip';
-import NoDataFallback from '../../common/DataInfo/NoDataFallback';
-import StatusIndicator from '../../common/ProgressLoader/StatusIndicator';
-import ModelSelector from './ModelSelector';
-import { useGroqInsights } from '../../../hooks/useGroqInsights';
-import type { ProcessedAnalytics } from '../../../lib/motherduck/types';
+import { motion } from "framer-motion";
+import { Brain, Lightbulb, TrendingUp, Crown } from "lucide-react";
+import { useState } from "react";
+import Tooltip from "../../common/Tooltip/Tooltip";
+import NoDataFallback from "../../common/DataInfo/NoDataFallback";
+import StatusIndicator from "../../common/ProgressLoader/StatusIndicator";
+import ModelSelector from "./ModelSelector";
+import { useGroqInsights } from "../../../hooks/useGroqInsights";
+import type { ProcessedAnalytics } from "../../../lib/motherduck/types";
 
 interface BusinessInsightsProps {
   data: ProcessedAnalytics;
@@ -15,9 +15,20 @@ interface BusinessInsightsProps {
   groqToken?: string;
 }
 
-export default function BusinessInsights({ data, stack, substack, groqToken }: BusinessInsightsProps) {
-  const [selectedModel, setSelectedModel] = useState('mixtral-8x7b-32768');
-  const { insights, status, refreshInsights } = useGroqInsights(stack, substack, data, groqToken, selectedModel);
+export default function BusinessInsights({
+  data,
+  stack,
+  substack,
+  groqToken,
+}: BusinessInsightsProps) {
+  const [selectedModel, setSelectedModel] = useState("mixtral-8x7b-32768");
+  const { insights, status, refreshInsights } = useGroqInsights(
+    stack,
+    substack,
+    data,
+    groqToken,
+    selectedModel
+  );
 
   const handleModelChange = (modelId: string) => {
     setSelectedModel(modelId);
@@ -26,21 +37,23 @@ export default function BusinessInsights({ data, stack, substack, groqToken }: B
 
   if (!groqToken) {
     return (
-      <NoDataFallback 
-        message="No cheating! You haven't provided a GROQ token. Add one to unlock AI-powered insights." 
-      />
+      <NoDataFallback message="No cheating! You haven't provided a GROQ token. Add one to unlock AI-powered insights." />
     );
   }
 
-  if (status.status === 'error') {
-    return <NoDataFallback message={status.message || 'Failed to load business insights'} />;
+  if (status.status === "error") {
+    return (
+      <NoDataFallback
+        message={status.message || "Failed to load business insights"}
+      />
+    );
   }
 
   const sections = insights?.split(/\d\.\s+/).filter(Boolean) || [];
   const sectionIcons = [
     <Lightbulb className="w-5 h-5 mt-1 text-green-400" />,
     <TrendingUp className="w-5 h-5 mt-1 text-blue-400" />,
-    <Crown className="w-5 h-5 mt-1 text-purple-400" />
+    <Crown className="w-5 h-5 mt-1 text-purple-400" />,
   ];
 
   return (
@@ -56,7 +69,7 @@ export default function BusinessInsights({ data, stack, substack, groqToken }: B
           <Tooltip content="AI-powered insights for business growth based on your analytics data" />
         </div>
         <div className="flex items-center gap-4">
-          <ModelSelector 
+          <ModelSelector
             selectedModel={selectedModel}
             onModelChange={handleModelChange}
           />
@@ -64,17 +77,20 @@ export default function BusinessInsights({ data, stack, substack, groqToken }: B
         </div>
       </div>
 
-      {status.status === 'loading' ? (
+      {status.status === "loading" ? (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-24 bg-gray-700/20 rounded-lg animate-pulse" />
+            <div
+              key={i}
+              className="h-24 bg-gray-700/20 rounded-lg animate-pulse"
+            />
           ))}
         </div>
       ) : (
         <div className="space-y-6">
           {sections.map((section, index) => {
-            const [title, ...content] = section.split('\n').filter(Boolean);
-            
+            const [title, ...content] = section.split("\n").filter(Boolean);
+
             return (
               <motion.div
                 key={index}
@@ -89,7 +105,7 @@ export default function BusinessInsights({ data, stack, substack, groqToken }: B
                     <h4 className="font-medium">{title}</h4>
                     <div className="text-gray-300 text-sm space-y-2">
                       {content.map((point, i) => (
-                        <p key={i}>{point.replace(/^-\s*/, '')}</p>
+                        <p key={i}>{point.replace(/^-\s*/, "")}</p>
                       ))}
                     </div>
                   </div>

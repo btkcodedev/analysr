@@ -1,8 +1,8 @@
-import { Cpu } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { GROQ_MODELS, fetchAvailableModels } from '../../../lib/groq/models';
-import type { GroqModel } from '../../../lib/groq/types';
-import Tooltip from '../../common/Tooltip/Tooltip';
+import { Cpu } from "lucide-react";
+import { useEffect, useState } from "react";
+import { GROQ_MODELS, fetchAvailableModels } from "../../../lib/groq/models";
+import type { GroqModel } from "../../../lib/groq/types";
+import Tooltip from "../../common/Tooltip/Tooltip";
 
 interface ModelSelectorProps {
   selectedModel: string;
@@ -10,7 +10,11 @@ interface ModelSelectorProps {
   groqToken?: string;
 }
 
-export default function ModelSelector({ selectedModel, onModelChange, groqToken }: ModelSelectorProps) {
+export default function ModelSelector({
+  selectedModel,
+  onModelChange,
+  groqToken,
+}: ModelSelectorProps) {
   const [models, setModels] = useState<GroqModel[]>(GROQ_MODELS);
 
   useEffect(() => {

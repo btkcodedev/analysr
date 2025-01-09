@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
-import { getConnection } from './connection';
-import { useTokenStore } from './tokenStore';
-import type { StatusState } from '../../types/status';
+import { useState, useEffect } from "react";
+import { getConnection } from "./connection";
+import { useTokenStore } from "./tokenStore";
+import type { StatusState } from "../../types/status";
 
-export function useConnectionStatus(inputToken: string | undefined): StatusState {
+export function useConnectionStatus(
+  inputToken: string | undefined
+): StatusState {
   const [status, setStatus] = useState<StatusState>({
-    status: 'loading',
+    status: "loading",
     lastUpdated: null,
-    message: 'Initializing connection...'
+    message: "Initializing connection...",
   });
 
-  const setStoreToken = useTokenStore(state => state.setToken);
+  const setStoreToken = useTokenStore((state) => state.setToken);
 
   useEffect(() => {
     setStoreToken(inputToken || null);
@@ -19,9 +21,9 @@ export function useConnectionStatus(inputToken: string | undefined): StatusState
   useEffect(() => {
     if (!inputToken) {
       setStatus({
-        status: 'stale',
+        status: "stale",
         lastUpdated: null,
-        message: 'Please enter your MotherDuck token'
+        message: "Please enter your MotherDuck token",
       });
       return;
     }
@@ -30,30 +32,30 @@ export function useConnectionStatus(inputToken: string | undefined): StatusState
 
     const checkConnection = async () => {
       try {
-        setStatus(prev => ({
+        setStatus((prev) => ({
           ...prev,
-          status: 'loading',
-          message: 'Establishing connection...'
+          status: "loading",
+          message: "Establishing connection...",
         }));
 
         const connection = await getConnection();
-        
+
         if (!isSubscribed) return;
 
         if (await connection.isInitialized()) {
           setStatus({
-            status: 'success',
+            status: "success",
             lastUpdated: new Date(),
-            message: 'Connected to MotherDuck'
+            message: "Connected to MotherDuck",
           });
         }
       } catch (err) {
         if (!isSubscribed) return;
-        
+
         setStatus({
-          status: 'error',
+          status: "error",
           lastUpdated: new Date(),
-          message: err instanceof Error ? err.message : 'Connection failed'
+          message: err instanceof Error ? err.message : "Connection failed",
         });
       }
     };

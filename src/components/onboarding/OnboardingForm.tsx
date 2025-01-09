@@ -132,15 +132,26 @@ export default function OnboardingForm() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="bg-white p-6 rounded-lg shadow-lg max-w-md text-center mb-60"
+            className="bg-white p-8 rounded-2xl shadow-2xl max-w-lg text-center space-y-6 mb-40"
           >
-            <h2 className="text-gray-700 font-bold mb-6 underline">One small thing</h2>
-            <p className="text-gray-700 mb-6">
-              Dear Amigo, Thank you for being here! <br/>Currently, this app only gives analytics based on reviews with schema: <br/>{`{ "review_text": "string", "stars": "number" }`}, <br/>Thus your motherduck tables must have this schema for this app to work. We're working on supporting additional schemas soon, Thank you for your cooperation! 🦆
+            <h2 className="text-indigo-700 font-extrabold text-xl mb-4 underline decoration-wavy-indigo decoration-purple-500">
+              One Small Thing!
+            </h2>
+            <p className="text-gray-700 text-base leading-relaxed">
+              Dear Amigo, thank you for being here! 🌟 <br />
+              Currently, this app provides analytics based on reviews with the
+              schema: <br />
+              <code className="bg-gray-100 text-sm px-2 py-1 rounded-lg">{`{ "review_text": "string", "stars": "number" }`}</code>
+              <br />
+              Ensure your MotherDuck tables follow this schema for proper
+              functionality. <br />
+              We're working on supporting additional schemas soon.
+              <br />
+              Thank you for your cooperation! 🦆
             </p>
             <button
               onClick={() => setShowOverlay(false)}
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg hover:from-indigo-500 hover:to-purple-500 transition-all duration-300"
             >
               Got it!
             </button>

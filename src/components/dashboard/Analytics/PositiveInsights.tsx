@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { Star, TrendingUp } from 'lucide-react';
-import type { PositiveInsight } from '../../../lib/motherduck/queries/positiveInsights';
-import Tooltip from '../../common/Tooltip/Tooltip';
-import NoDataFallback from '../../common/DataInfo/NoDataFallback';
+import { motion } from "framer-motion";
+import { Star, TrendingUp } from "lucide-react";
+import type { PositiveInsight } from "../../../lib/motherduck/queries/positiveInsights";
+import Tooltip from "../../common/Tooltip/Tooltip";
+import NoDataFallback from "../../common/DataInfo/NoDataFallback";
 
 interface PositiveInsightsProps {
   data: PositiveInsight[];
@@ -13,7 +13,6 @@ export default function PositiveInsights({ data }: PositiveInsightsProps) {
     return <NoDataFallback message="No positive insights available yet" />;
   }
 
-  // Sort by frequency and get top 3
   const topPerformers = data
     .sort((a, b) => b.frequency - a.frequency)
     .slice(0, 3);
@@ -29,7 +28,7 @@ export default function PositiveInsights({ data }: PositiveInsightsProps) {
         Top Performing Categories
         <Tooltip content="Most frequent positive aspects from customer reviews" />
       </h3>
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {topPerformers.map((insight, index) => (
           <motion.div
@@ -38,7 +37,9 @@ export default function PositiveInsights({ data }: PositiveInsightsProps) {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: index * 0.1 }}
             className={`bg-gray-800 rounded-lg p-4 ${
-              index === 0 ? 'sm:col-span-2 lg:col-span-1 ring-2 ring-yellow-500/20' : ''
+              index === 0
+                ? "sm:col-span-2 lg:col-span-1 ring-2 ring-yellow-500/20"
+                : ""
             }`}
           >
             <div className="flex items-start justify-between">
@@ -61,16 +62,22 @@ export default function PositiveInsights({ data }: PositiveInsightsProps) {
                   )}
                 </div>
                 <h4 className="font-medium text-lg mt-2">{insight.category}</h4>
-                <p className="text-sm text-gray-400 mt-1">{insight.description}</p>
+                <p className="text-sm text-gray-400 mt-1">
+                  {insight.description}
+                </p>
                 <div className="flex items-center gap-1 text-yellow-400 mt-2">
-                  {Array.from({ length: Math.round(insight.rating) }).map((_, i) => (
-                    <Star key={i} size={14} fill="currentColor" />
-                  ))}
+                  {Array.from({ length: Math.round(insight.rating) }).map(
+                    (_, i) => (
+                      <Star key={i} size={14} fill="currentColor" />
+                    )
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-1 text-emerald-400">
                 <TrendingUp size={16} />
-                <span className="font-medium">{insight.percentage.toFixed(1)}%</span>
+                <span className="font-medium">
+                  {insight.percentage.toFixed(1)}%
+                </span>
               </div>
             </div>
             <div className="mt-2 text-sm text-gray-400">
@@ -81,9 +88,11 @@ export default function PositiveInsights({ data }: PositiveInsightsProps) {
                 initial={{ width: 0 }}
                 animate={{ width: `${insight.percentage}%` }}
                 className={`h-full rounded-full ${
-                  index === 0 ? 'bg-yellow-500' : 
-                  index === 1 ? 'bg-gray-400' : 
-                  'bg-orange-500'
+                  index === 0
+                    ? "bg-yellow-500"
+                    : index === 1
+                    ? "bg-gray-400"
+                    : "bg-orange-500"
                 }`}
               />
             </div>

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { RefreshCw, ChevronDown } from 'lucide-react';
 import { useSyncStatus } from '../../../lib/airbyte/useSyncStatus';
 import StatusIndicator from '../../common/ProgressLoader/StatusIndicator';
-import DebugInfo from '../../common/DataInfo/DebugInfo';
 
 interface AirbyteSyncButtonProps {
   token: string;
@@ -16,8 +15,6 @@ export default function AirbyteSyncButton({ token, connectionId }: AirbyteSyncBu
   const [isTriggered, setIsTriggered] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedJobType, setSelectedJobType] = useState<JobType>('sync');
-  const [debugTimestamp, setDebugTimestamp] = useState<string | null>(null);
-
   const syncStatus = useSyncStatus(
     isTriggered ? token : undefined,
     isTriggered ? connectionId : undefined,
@@ -28,7 +25,6 @@ export default function AirbyteSyncButton({ token, connectionId }: AirbyteSyncBu
   const handleTrigger = () => {
     setIsTriggered(true);
     setShowDropdown(false);
-    setDebugTimestamp(new Date().toISOString());
   };
 
   const handleTypeSelect = (type: JobType) => {

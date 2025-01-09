@@ -1,4 +1,8 @@
-import { AspectAnalysis, PositiveInsight, TextAnalysis } from "../../types/analytics";
+import {
+  AspectAnalysis,
+  PositiveInsight,
+  TextAnalysis,
+} from "../../types/analytics";
 
 export interface NegativeInsight {
   phrase: string;

@@ -1,28 +1,28 @@
 import { useState, useEffect } from 'react';
 import { fetchAnalytics } from '../lib/motherduck/queries';
 import { initializeConnection } from '../lib/motherduck/connectionManager';
-import type { Analytics } from '../types/analytics';
+import type { Analytics, LoadingStageId } from '../types/analytics';
 import type { DataLimit } from '../components/onboarding/DataSelectionStep';
 import { fetchSentimentTrends } from '../lib/motherduck/queries/sentimentTrends';
 
-interface LoadingStage {
+export interface LoadingStage {
   id: LoadingStageId;
   label: string;
   status: 'pending' | 'loading' | 'complete' | 'error';
   progress: number;
 }
 
-interface LoadingState {
+export interface LoadingState {
   isComplete: boolean;
   stages: LoadingStage[];
 }
 
-interface QueryStats {
+export interface QueryStats {
   count: number;
   lastQuery: string;
 }
 
-interface UseAnalyticsResult {
+export interface UseAnalyticsResult {
   data: Analytics | null;
   loading: boolean;
   error: string | null;
@@ -33,16 +33,15 @@ interface UseAnalyticsResult {
   groqStatus: string;
 }
 
-const LOADING_STAGES = {
+export const LOADING_STAGES = {
   CONNECTION: 'CONNECTION',
   DATA: 'DATA',
   PROCESSING: 'PROCESSING',
   VISUALIZATION: 'VISUALIZATION',
 } as const;
 
-type LoadingStageId = (typeof LOADING_STAGES)[keyof typeof LOADING_STAGES];
 
-const STAGE_LABELS: Record<LoadingStageId, string> = {
+export const STAGE_LABELS: Record<LoadingStageId, string> = {
   [LOADING_STAGES.CONNECTION]: 'Connecting to database',
   [LOADING_STAGES.DATA]: 'Fetching analytics data',
   [LOADING_STAGES.PROCESSING]: 'Processing results',

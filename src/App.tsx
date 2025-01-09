@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import WelcomeScreen from './components/index/WelcomeScreen';
-import Onboarding from './components/index/Onboarding';
-import Dashboard from './components/index/Dashboard';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import WelcomeScreen from "./components/index/WelcomeScreen";
+import Onboarding from "./components/index/Onboarding";
+import Dashboard from "./components/index/Dashboard";
 
 function App() {
   return (

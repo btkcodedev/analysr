@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import type { KeyPhrase } from '../../../types/analytics';;
-import Tooltip from '../../common/Tooltip/Tooltip';
+import { motion } from "framer-motion";
+import type { KeyPhrase } from "../../../types/analytics";
+import Tooltip from "../../common/Tooltip/Tooltip";
 
 interface KeyPhraseSectionProps {
   data: KeyPhrase[];
@@ -21,12 +21,18 @@ export default function KeyPhraseSection({ data }: KeyPhraseSectionProps) {
             animate={{ opacity: 1 }}
             className="bg-gray-800/80 p-3 rounded-lg flex items-center justify-between"
           >
-            <span className="text-sm font-medium text-gray-300">"{phrase.text}"</span>
-            <span className={`px-2 py-1 text-xs rounded-full ${
-              phrase.sentiment > 0 ? 'bg-green-500/20 text-green-400' :
-              phrase.sentiment < 0 ? 'bg-red-500/20 text-red-400' :
-              'bg-gray-500/20 text-gray-400'
-            }`}>
+            <span className="text-sm font-medium text-gray-300">
+              "{phrase.text}"
+            </span>
+            <span
+              className={`px-2 py-1 text-xs rounded-full ${
+                phrase.sentiment > 0
+                  ? "bg-green-500/20 text-green-400"
+                  : phrase.sentiment < 0
+                  ? "bg-red-500/20 text-red-400"
+                  : "bg-gray-500/20 text-gray-400"
+              }`}
+            >
               {phrase.occurrences} mentions
             </span>
           </motion.div>

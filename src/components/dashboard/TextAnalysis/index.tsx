@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
-import { Type } from 'lucide-react';
-import type { TextAnalysis as TextAnalysisType } from '../../../types/analytics';
-import EmojiAnalysis from './EmojiAnalysis';
-import PunctuationAnalysis from './PunctuationAnalysis';
-import CapsAnalysis from './CapsAnalysis';
-import KeyPhraseSection from './KeyPhraseSection';
-import Tooltip from '../../common/Tooltip/Tooltip';
+import { motion } from "framer-motion";
+import { Type } from "lucide-react";
+import type { TextAnalysis as TextAnalysisType } from "../../../types/analytics";
+import EmojiAnalysis from "./EmojiAnalysis";
+import PunctuationAnalysis from "./PunctuationAnalysis";
+import CapsAnalysis from "./CapsAnalysis";
+import KeyPhraseSection from "./KeyPhraseSection";
+import Tooltip from "../../common/Tooltip/Tooltip";
 
 interface TextAnalysisProps {
   data: TextAnalysisType;

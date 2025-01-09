@@ -7,7 +7,6 @@ export default function WelcomeBackground() {
     const container = containerRef.current;
     if (!container) return;
 
-    // Create particles
     const particles = Array.from({ length: 20 }, (_, i) => {
       const particle = document.createElement('div');
       particle.className = 'particle';
@@ -20,7 +19,6 @@ export default function WelcomeBackground() {
 
     particles.forEach(p => container.appendChild(p));
 
-    // Mouse move effect
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;

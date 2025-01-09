@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import type { LucideIcon } from 'lucide-react';
+import { motion } from "framer-motion";
+import { welcomeScreenData } from "./welcomeScreenData";
+import type { LucideIcon } from "lucide-react";
 
 interface FeatureCardProps {
   icon: LucideIcon;
@@ -8,7 +9,12 @@ interface FeatureCardProps {
   index: number;
 }
 
-export default function FeatureCard({ icon: Icon, title, description, index }: FeatureCardProps) {
+export function FeatureCard({
+  icon: Icon,
+  title,
+  description,
+  index,
+}: FeatureCardProps) {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -23,6 +29,21 @@ export default function FeatureCard({ icon: Icon, title, description, index }: F
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="text-gray-400 text-sm">{description}</p>
       </div>
+    </motion.div>
+  );
+}
+
+export default function FeatureGrid() {
+  return (
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.4 }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 md:mt-12"
+    >
+      {welcomeScreenData.features.map((feature, index) => (
+        <FeatureCard key={feature.title} {...feature} index={index} />
+      ))}
     </motion.div>
   );
 }

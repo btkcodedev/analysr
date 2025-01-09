@@ -1,5 +1,5 @@
-import { BarChart, PieChart, TrendingUp, Users } from 'lucide-react';
-import StatCard from './StatCard';
+import { BarChart, PieChart, TrendingUp, Users } from "lucide-react";
+import StatCard from "./StatCard";
 
 interface StatGridProps {
   analyticsData: {
@@ -13,29 +13,31 @@ interface StatGridProps {
 export default function StatGrid({ analyticsData }: StatGridProps) {
   const stats = [
     {
-      title: 'Total Reviews',
+      title: "Total Reviews",
       value: analyticsData.totalReviews,
       icon: BarChart,
-      color: 'blue'
+      color: "blue",
     },
     {
-      title: 'Average Rating',
+      title: "Average Rating",
       value: analyticsData.averageRating.toFixed(1),
       icon: Users,
-      color: 'green'
+      color: "green",
     },
     {
-      title: 'Sentiment Score',
-      value: `${analyticsData.sentimentScore}%`,
+      title: "Sentiment Score",
+      value: `${analyticsData.sentimentScore.toFixed(2)}%`,
       icon: TrendingUp,
-      color: 'purple'
+      color: "purple",
     },
     {
-      title: 'Competitor Comparison',
-      value: `${analyticsData.competitorComparison > 0 ? '+' : ''}${analyticsData.competitorComparison.toFixed(1)}%`,
+      title: "Competitor Comparison",
+      value: `${
+        analyticsData.competitorComparison > 0 ? "+" : ""
+      }${analyticsData.competitorComparison.toFixed(1)}%`,
       icon: PieChart,
-      color: analyticsData.competitorComparison >= 0 ? 'emerald' : 'red'
-    }
+      color: analyticsData.competitorComparison >= 0 ? "emerald" : "red",
+    },
   ];
 
   return (

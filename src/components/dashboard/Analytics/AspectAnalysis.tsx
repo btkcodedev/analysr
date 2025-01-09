@@ -1,8 +1,16 @@
-import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
-import { BarChart3 } from 'lucide-react';
-import type { AspectAnalysis as AspectAnalysisType } from '../../../lib/motherduck/types';
-import Tooltip from '../../common/Tooltip/Tooltip';
+import { motion } from "framer-motion";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { BarChart3 } from "lucide-react";
+import type { AspectAnalysis as AspectAnalysisType } from "../../../lib/motherduck/types";
+import Tooltip from "../../common/Tooltip/Tooltip";
 
 interface AspectAnalysisProps {
   data: AspectAnalysisType[];
@@ -22,10 +30,13 @@ export default function AspectAnalysis({ data }: AspectAnalysisProps) {
       </h3>
       <div className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <BarChart
+            data={data}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis 
-              dataKey="aspect" 
+            <XAxis
+              dataKey="aspect"
               stroke="#9CA3AF"
               angle={-45}
               textAnchor="end"
@@ -44,24 +55,30 @@ export default function AspectAnalysis({ data }: AspectAnalysisProps) {
                     <p className="text-sm text-gray-300">{data.description}</p>
                     <div className="mt-2 pt-2 border-t border-gray-700">
                       <p className="text-sm text-gray-400">
-                        Average Rating: <span className="text-purple-400">{data.avgRating.toFixed(1)}</span>
+                        Average Rating:{" "}
+                        <span className="text-purple-400">
+                          {data.avgRating.toFixed(1)}
+                        </span>
                       </p>
                       <p className="text-sm text-gray-400">
-                        Mentions: <span className="text-purple-400">{data.mentionCount}</span>
+                        Mentions:{" "}
+                        <span className="text-purple-400">
+                          {data.mentionCount}
+                        </span>
                       </p>
                     </div>
                   </div>
                 );
               }}
             />
-            <Bar 
-              dataKey="avgRating" 
-              fill="#8B5CF6" 
+            <Bar
+              dataKey="avgRating"
+              fill="#8B5CF6"
               radius={[4, 4, 0, 0]}
-              label={{ 
-                position: 'top',
-                fill: '#9CA3AF',
-                fontSize: 12
+              label={{
+                position: "top",
+                fill: "#9CA3AF",
+                fontSize: 12,
               }}
             />
           </BarChart>
@@ -71,12 +88,18 @@ export default function AspectAnalysis({ data }: AspectAnalysisProps) {
         {data.map((aspect) => (
           <div key={aspect.aspect} className="bg-gray-800 rounded-lg p-4">
             <div className="flex items-center justify-between mb-1">
-              <h4 className="text-sm font-medium text-gray-300">{aspect.aspect}</h4>
-              <Tooltip content={aspect.description} />
+              <h4 className="text-sm font-medium text-gray-300">
+                {aspect.aspect}
+              </h4>
+              <Tooltip content={aspect.description!} />
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-2xl font-bold">{aspect.avgRating.toFixed(1)}</span>
-              <span className="text-sm text-gray-400">{aspect.mentionCount} mentions</span>
+              <span className="text-2xl font-bold">
+                {aspect.avgRating.toFixed(1)}
+              </span>
+              <span className="text-sm text-gray-400">
+                {aspect.mentionCount} mentions
+              </span>
             </div>
           </div>
         ))}

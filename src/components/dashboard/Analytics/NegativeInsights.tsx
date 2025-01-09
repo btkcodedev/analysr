@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { AlertTriangle, TrendingDown } from 'lucide-react';
-import type { NegativeInsight } from '../../../lib/motherduck/types';
-import Tooltip from '../../common/Tooltip/Tooltip';
-import NoDataFallback from '../../common/DataInfo/NoDataFallback';
+import { motion } from "framer-motion";
+import { AlertTriangle, TrendingDown } from "lucide-react";
+import type { NegativeInsight } from "../../../lib/motherduck/types";
+import Tooltip from "../../common/Tooltip/Tooltip";
+import NoDataFallback from "../../common/DataInfo/NoDataFallback";
 
 interface NegativeInsightsProps {
   data: NegativeInsight[];
@@ -36,19 +36,27 @@ export default function NegativeInsights({ data }: NegativeInsightsProps) {
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-red-400" />
-                <span className={`text-xs px-2 py-1 rounded-full ${
-                  insight.rating <= 1.5 ? 'bg-red-500/20 text-red-400' :
-                  insight.rating <= 2.0 ? 'bg-orange-500/20 text-orange-400' :
-                  'bg-yellow-500/20 text-yellow-400'
-                }`}>
+                <span
+                  className={`text-xs px-2 py-1 rounded-full ${
+                    insight.rating <= 1.5
+                      ? "bg-red-500/20 text-red-400"
+                      : insight.rating <= 2.0
+                      ? "bg-orange-500/20 text-orange-400"
+                      : "bg-yellow-500/20 text-yellow-400"
+                  }`}
+                >
                   {insight.frequency} mentions
                 </span>
               </div>
             </div>
             <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-300">"{insight.phrase}"</p>
+              <p className="text-sm font-medium text-gray-300">
+                "{insight.phrase}"
+              </p>
               <div className="flex justify-between items-center text-xs text-gray-400">
-                <span>{insight.percentage.toFixed(1)}% of negative reviews</span>
+                <span>
+                  {insight.percentage.toFixed(1)}% of negative reviews
+                </span>
                 <span>{insight.rating.toFixed(1)}★</span>
               </div>
             </div>

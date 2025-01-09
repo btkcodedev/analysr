@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import type { CapsAnalysis as CapsAnalysisType } from '../../../types/analytics';
-import Tooltip from '../../common/Tooltip/Tooltip';
+import { motion } from "framer-motion";
+import type { CapsAnalysis as CapsAnalysisType } from "../../../types/analytics";
+import Tooltip from "../../common/Tooltip/Tooltip";
 
 interface CapsAnalysisProps {
   data: CapsAnalysisType[];

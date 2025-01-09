@@ -5,7 +5,7 @@ export interface AirbyteConfig {
 
 export interface SyncJobResponse {
   jobId: string;
-  status: 'pending' | 'running' | 'completed' | 'failed';
+  status: "pending" | "running" | "completed" | "failed";
   createdAt: number;
   updatedAt: number;
   connectionId: string;
@@ -16,7 +16,7 @@ export interface SyncJobResponse {
 }
 
 export interface StatusState {
-  status: 'idle' | 'loading' | 'success' | 'error';
+  status: "idle" | "loading" | "success" | "error";
   lastUpdated: Date | null;
   message: string | null;
 }

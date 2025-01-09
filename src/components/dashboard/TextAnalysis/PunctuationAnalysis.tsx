@@ -1,13 +1,15 @@
-import { motion } from 'framer-motion';
-import { HelpCircle, AlertTriangle } from 'lucide-react';
-import type { PunctuationStats } from '../../../types/analytics';
-import Tooltip from '../../common/Tooltip/Tooltip';
+import { motion } from "framer-motion";
+import { HelpCircle, AlertTriangle } from "lucide-react";
+import type { PunctuationStats } from "../../../types/analytics";
+import Tooltip from "../../common/Tooltip/Tooltip";
 
 interface PunctuationAnalysisProps {
   data: PunctuationStats;
 }
 
-export default function PunctuationAnalysis({ data }: PunctuationAnalysisProps) {
+export default function PunctuationAnalysis({
+  data,
+}: PunctuationAnalysisProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-2">

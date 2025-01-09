@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Groq } from 'groq-sdk';
-import type { StatusState } from '../../types/status';
+import { useState, useEffect } from "react";
+import { Groq } from "groq-sdk";
+import type { StatusState } from "../../types/status";
 
 export function useGroqConnection(token?: string): StatusState {
   const [status, setStatus] = useState<StatusState>({
-    status: 'loading',
+    status: "loading",
     lastUpdated: null,
-    message: 'Initializing GROQ connection...'
+    message: "Initializing GROQ connection...",
   });
 
   useEffect(() => {
     if (!token) {
       setStatus({
-        status: 'stale',
+        status: "stale",
         lastUpdated: null,
-        message: 'Please enter your GROQ token'
+        message: "Please enter your GROQ token",
       });
       return;
     }
@@ -23,39 +23,40 @@ export function useGroqConnection(token?: string): StatusState {
 
     const checkConnection = async () => {
       try {
-        setStatus(prev => ({
+        setStatus((prev) => ({
           ...prev,
-          status: 'loading',
-          message: 'Verifying GROQ token...'
+          status: "loading",
+          message: "Verifying GROQ token...",
         }));
 
         const client = new Groq({
           apiKey: token,
-          dangerouslyAllowBrowser: true
+          dangerouslyAllowBrowser: true,
         });
 
         const completion = await client.chat.completions.create({
-          messages: [{ role: 'user', content: 'Test connection' }],
-          model: 'mixtral-8x7b-32768',
-          max_tokens: 1
+          messages: [{ role: "user", content: "Test connection" }],
+          model: "mixtral-8x7b-32768",
+          max_tokens: 1,
         });
 
         if (!isSubscribed) return;
 
         if (completion) {
           setStatus({
-            status: 'success',
+            status: "success",
             lastUpdated: new Date(),
-            message: 'Connected to GROQ'
+            message: "Connected to GROQ",
           });
         }
       } catch (err) {
         if (!isSubscribed) return;
-        
+
         setStatus({
-          status: 'error',
+          status: "error",
           lastUpdated: new Date(),
-          message: err instanceof Error ? err.message : 'GROQ connection failed'
+          message:
+            err instanceof Error ? err.message : "GROQ connection failed",
         });
       }
     };

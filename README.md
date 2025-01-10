@@ -17,6 +17,15 @@ Here’s a speedy summary:
 ![image](https://github.com/user-attachments/assets/0abe96f6-414a-42d2-aa0d-d0950a7da194)
 
 
+## ❓ Why Analysr
+
+- **Scale Beyond Regular AI Capabilities:** Traditional AI systems, like ChatGPT, struggle to handle extensive datasets (e.g., 65,000+ records) effectively. Analysr bridges this gap.
+- **Seamless Motherduck, Airbyte, Groq Integration:** Thanks to Motherduck wasm client, Airbyte's API and Groq SDK.
+- **Data-Driven Insights:** By combining AI with visualization tools, Analysr allows users to uncover trends, anomalies, and actionable insights quickly and intuitively.
+- **User-Friendly Visualization:** Visual AI integration transforms raw data into understandable and compelling graphics, enabling better decision-making.
+- **Streamlined Process**: Reduces reliance on multiple tools by offering an all-in-one platform for schema analysis and visualization.
+
+  
 ## 🚶Walkthrough
 
 1) To obtain customer review insights, sync your data to Motherduck with the schema: <code>{ "review_text": "string", "stars": "number" }</code> (More schemas support are in the future roadmap). We recommend using Airbyte due to its extensive list of sources and seamless data movement. ![image](https://github.com/user-attachments/assets/415aece5-6594-4649-8d84-ec2fa1707988)
@@ -41,7 +50,7 @@ Here’s a speedy summary:
 ![image](https://github.com/user-attachments/assets/1ae1427d-c315-4e02-ac75-158e3cb14d61)
 
 **Need a dataset and one example method to test?**
-1. Hugging face dataset URL which I used, https://huggingface.co/datasets/Yelp/yelp_review_full
+1. Hugging face dataset URL which I used - https://huggingface.co/datasets/Yelp/yelp_review_full
 2. Import it to Motherduck via Airbyte (Set huggingface as source and Motherduck as destination) OR attach using my share link
 ```bash
 -- Run this snippet to attach the database
@@ -59,14 +68,6 @@ ATTACH 'md:_share/my_db/de60469b-3a05-4d74-bf63-4c1549dd55b6';
 - **Keyphrase Analysis:** Identify and analyze key phrases that matter to your customers.
 - **Competitor Comparison:** Benchmark your performance against competitors.
 
-## ❓ Why Analysr
-
-- **Scale Beyond Regular AI Capabilities:** Traditional AI systems, like ChatGPT, struggle to handle extensive datasets (e.g., 65,000+ records) effectively. Analysr bridges this gap.
-- **Seamless Motherduck, Airbyte, Groq Integration:** Thanks to Motherduck wasm client, Airbyte's API and Groq SDK.
-- **Data-Driven Insights:** By combining AI with visualization tools, Analysr allows users to uncover trends, anomalies, and actionable insights quickly and intuitively.
-- **User-Friendly Visualization:** Visual AI integration transforms raw data into understandable and compelling graphics, enabling better decision-making.
-- **Streamlined Process**: Reduces reliance on multiple tools by offering an all-in-one platform for schema analysis and visualization.
-
 ## 🛠️ Technology Stack
 
 - **Frontend**: React, TypeScript, Tailwind CSS, Vite
@@ -78,6 +79,8 @@ ATTACH 'md:_share/my_db/de60469b-3a05-4d74-bf63-4c1549dd55b6';
 - **Hosting**: Firebase (Production), Vercel (Experiment)
 - **Proxy**: Supabase edge functions
 - **CI/CD**: GitHub Actions for automated deployment
+
+**Declarations:** For development, the VSCode code editor, Codeium AI helper extension, and suggestions from ChatGPT were used.
 
 ## 🔮 Future roadmap
 

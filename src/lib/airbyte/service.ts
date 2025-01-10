@@ -1,6 +1,13 @@
 import type { AirbyteConfig, SyncJobResponse } from "./types";
 import { AIRBYTE_API_PROXY_URL as API_BASE_URL } from "../../config/services";
 
+const noCacheHeaders = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
+  'X-Request-Timestamp': Date.now().toString(),
+};
+
 export async function checkConnectionStatus(
   config: AirbyteConfig
 ): Promise<boolean> {
@@ -9,10 +16,10 @@ export async function checkConnectionStatus(
       throw new Error("Bearer token is required");
     }
 
-    const response = await fetch(`${API_BASE_URL}/sources`, {
+    const response = await fetch(`${API_BASE_URL}/sources?_=${Date.now()}`, {
       method: "GET",
       headers: {
-        'Cache-Control': 'no-cache',
+        ...noCacheHeaders,
         authorization: `Bearer ${config.bearerToken}`,
         accept: "application/json",
       },
@@ -39,10 +46,10 @@ export async function triggerJob(
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/jobs`, {
+    const response = await fetch(`${API_BASE_URL}/jobs?_=${Date.now()}`, {
       method: "POST",
       headers: {
-        'Cache-Control': 'no-cache',
+        ...noCacheHeaders,
         authorization: `Bearer ${config.bearerToken}`,
         accept: "application/json",
         "content-type": "application/json",

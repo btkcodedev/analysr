@@ -12,7 +12,7 @@ export const GROQ_MODELS: GroqModel[] = [
 
 export async function fetchAvailableModels(token: string): Promise<GroqModel[]> {
   try {
-    const response = await fetch(`${GROQ_API_PROXY_URL}/v1/models`, {
+    const response = await fetch(`${GROQ_API_PROXY_URL}/models`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',

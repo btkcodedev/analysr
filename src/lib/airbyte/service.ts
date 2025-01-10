@@ -1,6 +1,5 @@
 import type { AirbyteConfig, SyncJobResponse } from "./types";
-
-const API_BASE_URL = "/api/airbyte";
+import { AIRBYTE_API_PROXY_URL as API_BASE_URL } from "../../config/services";
 
 export async function checkConnectionStatus(
   config: AirbyteConfig
@@ -22,8 +21,7 @@ export async function checkConnectionStatus(
       throw new Error(`Connection check failed: ${response.statusText}`);
     }
 
-    const data = await response.json();
-    console.log(data);
+    await response.json();
     return response.ok;
   } catch (error) {
     console.error("Connection check error:", error);

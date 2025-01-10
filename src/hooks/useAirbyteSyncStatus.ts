@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { checkConnectionStatus, triggerJob } from "./service";
-import type { StatusState } from "../../types/status";
+import { checkConnectionStatus, triggerJob } from "../lib/airbyte/service";
+import type { StatusState } from "../types/status";
 
-export function useSyncStatus(
+export function useAirbyteSyncStatus(
   token?: string,
   connectionId?: string,
   jobType: "sync" | "reset" = "sync",

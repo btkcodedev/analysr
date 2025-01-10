@@ -1,3 +1,4 @@
+import { SentimentData } from "../../components/dashboard/Analytics/SentimentHeatmap";
 import {
   AspectAnalysis,
   PositiveInsight,
@@ -22,6 +23,7 @@ export interface ProcessedAnalytics {
   negativeInsights: NegativeInsight[];
   positiveInsights: PositiveInsight[];
   textAnalysis: TextAnalysis;
+  sentimentInsights?: SentimentData[];
 }
 export type { AspectAnalysis };
 

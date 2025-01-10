@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { RefreshCw, ChevronDown } from 'lucide-react';
-import { useSyncStatus } from '../../../lib/airbyte/useSyncStatus';
+import { useAirbyteSyncStatus } from '../../../hooks/useAirbyteSyncStatus';
 import StatusIndicator from '../../common/ProgressLoader/StatusIndicator';
 
 interface AirbyteSyncButtonProps {
@@ -15,7 +15,7 @@ export default function AirbyteSyncButton({ token, connectionId }: AirbyteSyncBu
   const [isTriggered, setIsTriggered] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedJobType, setSelectedJobType] = useState<JobType>('sync');
-  const syncStatus = useSyncStatus(
+  const syncStatus = useAirbyteSyncStatus(
     isTriggered ? token : undefined,
     isTriggered ? connectionId : undefined,
     selectedJobType,

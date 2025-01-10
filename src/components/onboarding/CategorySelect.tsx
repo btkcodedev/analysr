@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import type { BusinessCategory, SubStack } from "../../data/businessCategories";
+import type { BusinessCategory, SubStack } from "../../config/data/businessCategories";
 
 interface CategorySelectProps {
   categories: BusinessCategory[];

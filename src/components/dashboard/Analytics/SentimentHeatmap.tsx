@@ -2,25 +2,13 @@ import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import { ResponsiveContainer, Treemap, Tooltip } from 'recharts';
 import TooltipComponent from '../../common/Tooltip/Tooltip';
+import NoDataFallback from '../../common/DataInfo/NoDataFallback';
 
-interface SentimentData {
+export interface SentimentData {
   name: string;
   size: number;
   sentiment: number;
 }
-
-const SENTIMENT_WORDS: SentimentData[] = [
-  { name: 'Love', size: 800, sentiment: 1 },
-  { name: 'Amazing', size: 700, sentiment: 0.9 },
-  { name: 'Great', size: 600, sentiment: 0.8 },
-  { name: 'Good', size: 500, sentiment: 0.6 },
-  { name: 'Okay', size: 400, sentiment: 0.2 },
-  { name: 'Neutral', size: 300, sentiment: 0 },
-  { name: 'Poor', size: 250, sentiment: -0.4 },
-  { name: 'Bad', size: 200, sentiment: -0.6 },
-  { name: 'Terrible', size: 150, sentiment: -0.8 },
-  { name: 'Hate', size: 100, sentiment: -1 }
-];
 
 const getSentimentColor = (sentiment: number) => {
   if (sentiment > 0.5) return '#22c55e'; // Green for very positive
@@ -30,10 +18,54 @@ const getSentimentColor = (sentiment: number) => {
   return '#ef4444'; // Red for very negative
 };
 
-export default function SentimentHeatmap() {
-  const data = {
+const CustomizedContent = (props: any) => {
+  const { x, y, width, height, name, sentiment } = props;
+
+  return (
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        fill={getSentimentColor(sentiment)}
+        stroke="#1f2937"
+        strokeWidth={1}
+      />
+      {width > 40 && height > 25 && (
+        <text
+          x={x + width / 2}
+          y={y + height / 2}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill="#fff"
+          fontSize={12}
+          className="select-none pointer-events-none"
+        >
+          {name}
+        </text>
+      )}
+    </g>
+  );
+};
+
+interface SentimentHeatmapProps {
+  data: SentimentData[];
+}
+
+export default function SentimentHeatmap({ data }: SentimentHeatmapProps) {
+  if (!data || data.length === 0) {
+    return <NoDataFallback message="No sentiment heatmap insights available yet" />;
+  }
+
+  const transformedData = {
     name: 'sentiment',
-    children: SENTIMENT_WORDS
+    children: data.map(item => ({
+      name: item.name,
+      value: item.size,
+      size: item.size,
+      sentiment: item.sentiment
+    }))
   };
 
   return (
@@ -48,44 +80,15 @@ export default function SentimentHeatmap() {
         <TooltipComponent content="Heatmap showing the sentiment distribution of common words in reviews" />
       </h3>
       
-      <div className="h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="h-[300px] w-full">
+        <ResponsiveContainer>
           <Treemap
-            data={[data]}
-            dataKey="size"
-            stroke="#374151"
-            fill="#374151"
-            content={(props: any) => {
-              const { depth, x, y, width, height, name, sentiment } = props;
-          
-              if (depth === 1) {
-                return (
-                  <g>
-                    <rect
-                      x={x}
-                      y={y}
-                      width={width}
-                      height={height}
-                      fill={getSentimentColor(sentiment)}
-                      stroke="#374151"
-                    />
-                    {width > 30 && height > 30 && (
-                      <text
-                        x={x + width / 2}
-                        y={y + height / 2}
-                        textAnchor="middle"
-                        fill="#fff"
-                        fontSize={12}
-                        className="select-none pointer-events-none"
-                      >
-                        {name}
-                      </text>
-                    )}
-                  </g>
-                );
-              }
-              return null;
-            }}
+            data={transformedData.children}
+            dataKey="value"
+            aspectRatio={4/3}
+            stroke="#1f2937"
+            animationDuration={450}
+            content={<CustomizedContent />}
           >
             <Tooltip
               content={({ payload }) => {
@@ -94,6 +97,9 @@ export default function SentimentHeatmap() {
                 return (
                   <div className="bg-gray-800 p-2 rounded-lg border border-gray-700">
                     <p className="font-medium">{data.name}</p>
+                    <p className="text-sm text-gray-400">
+                      Frequency: {data.size}
+                    </p>
                     <p className="text-sm text-gray-400">
                       Sentiment: {(data.sentiment * 100).toFixed(0)}%
                     </p>

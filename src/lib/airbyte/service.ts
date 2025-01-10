@@ -12,6 +12,7 @@ export async function checkConnectionStatus(
     const response = await fetch(`${API_BASE_URL}/sources`, {
       method: "GET",
       headers: {
+        'Cache-Control': 'no-cache',
         authorization: `Bearer ${config.bearerToken}`,
         accept: "application/json",
       },
@@ -41,6 +42,7 @@ export async function triggerJob(
     const response = await fetch(`${API_BASE_URL}/jobs`, {
       method: "POST",
       headers: {
+        'Cache-Control': 'no-cache',
         authorization: `Bearer ${config.bearerToken}`,
         accept: "application/json",
         "content-type": "application/json",

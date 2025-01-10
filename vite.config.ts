@@ -10,11 +10,11 @@ import {
 } from "./src/config/services/index";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  loadEnv(mode, process.cwd(), "");
   const AIRBYTE_API_PROXY_URL = AB_PROX;
-  const AIRBYTE_API_BASE_URL = env.VITE_AIRBYTE_API_BASE_URL || AB_BASE;
+  const AIRBYTE_API_BASE_URL = AB_BASE;
   const GROQ_API_PROXY_URL = GROQ_PROX;
-  const GROQ_API_BASE_URL = env.VITE_GROQ_API_BASE_URL || GROQ_BASE;
+  const GROQ_API_BASE_URL = GROQ_BASE;
   return {
     plugins: [react()],
     server: {

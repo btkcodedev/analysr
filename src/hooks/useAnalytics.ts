@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchAnalytics } from '../lib/motherduck/queries';
-import { initializeConnection } from '../lib/motherduck/connectionManager';
+import { initializeConnection } from '../lib/motherduck/analyticsConnectionManager';
 import type { Analytics, LoadingStageId } from '../types/analytics';
 import type { DataLimit } from '../components/onboarding/DataSelectionStep';
 import { fetchSentimentTrends } from '../lib/motherduck/queries/sentimentTrends';

@@ -4,6 +4,9 @@ import { getMotherDuckConfig } from './config';
 let connection: ReturnType<typeof MDConnection.create> | null = null;
 let connectionPromise: Promise<ReturnType<typeof MDConnection.create>> | null = null;
 
+//Adds lazy implementation to the connection initialization using promise, rather than initializing it immediately.
+//Useful in scenarios where multiple components might simultaneously attempt to use the connection.
+
 export const initializeConnection = async () => {
   const config = getMotherDuckConfig();
   

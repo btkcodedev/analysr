@@ -1,4 +1,4 @@
-import { getConnection } from '../connectionManager';
+import { getConnection } from '../analyticsConnectionManager';
 import { getTableRef, buildSampleClause } from './utils';
 import { fetchAspectAnalysis } from './aspectAnalysis';
 import { fetchNegativeInsights } from './negativeInsights';

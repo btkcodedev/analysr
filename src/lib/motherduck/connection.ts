@@ -3,6 +3,9 @@ import { getMotherDuckConfig } from './config';
 
 let connection: ReturnType<typeof MDConnection.create> | null = null;
 
+// Initializes the connection to MotherDuck immidiately
+// Useful for performing connection checks
+
 export const getConnection = async () => {
   const config = getMotherDuckConfig();
 

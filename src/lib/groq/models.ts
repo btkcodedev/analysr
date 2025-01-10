@@ -1,4 +1,4 @@
-import { GROQ_API_PROXY_URL } from '../../config/services';
+import { getGroqApiUrl } from '../../config/services';
 import type { GroqModel } from './types';
 
 export const GROQ_MODELS: GroqModel[] = [
@@ -12,7 +12,8 @@ export const GROQ_MODELS: GroqModel[] = [
 
 export async function fetchAvailableModels(token: string): Promise<GroqModel[]> {
   try {
-    const response = await fetch(`${GROQ_API_PROXY_URL}/models`, {
+    const url = getGroqApiUrl()
+    const response = await fetch(`${url}/models`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',

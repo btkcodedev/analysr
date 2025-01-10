@@ -13,6 +13,10 @@ For all you speedy folks out there, here’s the summary:
   - With your customer reviews in Motherduck, along with your chosen business stack and areas of interest, Analysr is ready to dish out some insightful analytics. To sweeten the deal, Groq is also integrated to help you navigate all your growth phases.
   - Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for those feelings), Advanced Text Analysis, Groq Business Analytics, Keyphrase Analysis, and a handy Competitor Comparison.
 
+## Architecture
+![image](https://github.com/user-attachments/assets/0abe96f6-414a-42d2-aa0d-d0950a7da194)
+
+
 ## 🚶Walkthrough
 
 1) To obtain customer review insights, sync your data to Motherduck with the schema: <code>{ "review_text": "string", "stars": "number" }</code> (More schemas will be supported soon). We recommend using Airbyte due to its extensive list of sources and seamless data movement. ![image](https://github.com/user-attachments/assets/415aece5-6594-4649-8d84-ec2fa1707988)

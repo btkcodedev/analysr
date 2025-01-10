@@ -157,6 +157,7 @@ export function useAnalytics(
     if (progress <= 20) {
       updateLoadingStage(LOADING_STAGES.DATA, 'loading', progress * 2);
     } else if (progress <= 60) {
+      updateLoadingStage(LOADING_STAGES.DATA, 'loading', 80);
       updateLoadingStage(LOADING_STAGES.PROCESSING, 'loading', (progress - 20) * 2.5);
     } else {
       updateLoadingStage(LOADING_STAGES.VISUALIZATION, 'loading', (progress - 60) * 2.5);
@@ -186,8 +187,8 @@ export function useAnalytics(
         await initializeConnection();
         if (!isSubscribed) return;
         updateLoadingStage(LOADING_STAGES.CONNECTION, 'complete', 100);
-        updateLoadingStage(LOADING_STAGES.DATA, 'loading', 5);
 
+        updateLoadingStage(LOADING_STAGES.DATA, 'loading', 5);
         setResult(prev => ({
           ...prev,
           queryStats: { count: 0, lastQuery: '' }
@@ -196,7 +197,7 @@ export function useAnalytics(
         const [analyticsData] = await Promise.all([
           fetchAnalytics(database, tableName, limit, handleProgress),
         ]);
-
+        updateLoadingStage(LOADING_STAGES.DATA, 'complete', 100);
         if (!isSubscribed) return;
         const processedData: Analytics = {
           ...analyticsData,

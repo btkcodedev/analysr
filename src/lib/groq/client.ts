@@ -97,7 +97,10 @@ Keep each point specific, actionable, and directly tied to the data. Focus on th
     messages: [{ role: 'user', content: prompt }],
     model: selectedModel.id,
     temperature: 0.7,
-    max_tokens: Math.min(selectedModel.maxTokens, 768)
+    max_tokens: Math.min(selectedModel.maxTokens, 768),
+    // TODO: For next release
+    // top_p: 0.8, //Focus finetuning
+    // presence_penalty: 0.3 // Diverse insights finetuning
   });
 
   return completion.choices[0]?.message?.content || '';

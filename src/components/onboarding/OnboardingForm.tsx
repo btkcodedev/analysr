@@ -91,7 +91,6 @@ export default function OnboardingForm() {
 
       navigate("/dashboard", { state: finalData });
     } catch (error) {
-      console.error("Form submission error:", error);
       setValidationError(
         error instanceof Error ? error.message : "An error occurred"
       );

@@ -32,7 +32,6 @@ export async function checkConnectionStatus(
     await response.json();
     return response.ok;
   } catch (error) {
-    console.error("Connection check error:", error);
     return false;
   }
 }
@@ -79,7 +78,6 @@ export async function triggerJob(
       error: data.error,
     };
   } catch (error) {
-    console.error("Airbyte job error:", error);
     throw error;
   }
 }

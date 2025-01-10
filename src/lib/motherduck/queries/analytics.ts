@@ -12,6 +12,7 @@ export async function fetchAnalytics(
   database: string,
   tableName: string,
   limit: DataLimit,
+  onProgress?: (stage: string, progress: number, currentQuery?: string) => void
 ): Promise<ProcessedAnalytics> {
   const connection = await getConnection();
   if (!connection) {
@@ -31,21 +32,28 @@ export async function fetchAnalytics(
       FROM sample_data
     `;
 
-    const [
-      basicStats,
-      aspectAnalysis,
-      negativeInsights,
-      positiveInsights,
-      textAnalysis,
-      sentimentData
-    ] = await Promise.all([
-      connection.evaluateQuery(basicStatsQuery),
-      fetchAspectAnalysis(database, tableName, limit),
-      fetchNegativeInsights(database, tableName, limit),
-      fetchPositiveInsights(database, tableName, limit),
+    onProgress?.('Basic Statistics', 10, basicStatsQuery);
+    const basicStats = await connection.evaluateQuery(basicStatsQuery);
+    onProgress?.('Basic Statistics', 20);
+
+    onProgress?.('Aspect Analysis', 25, 'Fetching aspect analysis...');
+    const aspectAnalysis = await fetchAspectAnalysis(database, tableName, limit);
+    onProgress?.('Aspect Analysis', 40);
+
+    onProgress?.('Negative Insights', 45, 'Analyzing negative feedback...');
+    const negativeInsights = await fetchNegativeInsights(database, tableName, limit);
+    onProgress?.('Negative Insights', 60);
+
+    onProgress?.('Positive Insights', 65, 'Analyzing positive feedback...');
+    const positiveInsights = await fetchPositiveInsights(database, tableName, limit);
+    onProgress?.('Positive Insights', 80);
+
+    onProgress?.('Text Analysis', 85, 'Processing text patterns...');
+    const [textAnalysis, sentimentData] = await Promise.all([
       fetchTextAnalysis(database, tableName, limit),
       fetchSentimentInsights(database, tableName, limit),
     ]);
+    onProgress?.('Text Analysis', 100);
 
     const stats = basicStats.data.toRows()[0];
     const industryAverage = 3.5;
@@ -63,7 +71,6 @@ export async function fetchAnalytics(
       sentimentInsights: sentimentData,
     };
   } catch (error) {
-    console.error('Analytics query execution failed:', error);
     throw error;
   }
 }

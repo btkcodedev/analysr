@@ -77,8 +77,10 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6">
       <div className="space-y-6 mb-8">
+      <div className="max-w-6xl mx-auto">
         {isMockData && <MockDataBanner />}
         <StatusIndicator {...statusState} />
+        </div>
       </div>
 
       <DashboardContent
@@ -86,6 +88,7 @@ export default function Dashboard() {
         stack={businessData.stack}
         substack={businessData.substack}
         groqToken={businessData.groqToken}
+        interests={businessData.interests}
       />
     </div>
   );

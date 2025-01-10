@@ -59,7 +59,6 @@ export default function DataSelectionStep({
 
         setDatabases(dbList);
       } catch (err) {
-        console.error("Error fetching databases:", err);
         setError("Failed to fetch databases");
       } finally {
         setLoading(false);
@@ -87,7 +86,6 @@ export default function DataSelectionStep({
           .sort();
         setTables(tableList);
       } catch (err) {
-        console.error("Error fetching tables:", err);
         setError(err instanceof Error ? err.message : "Failed to fetch tables");
       } finally {
         setLoading(false);
@@ -136,7 +134,6 @@ export default function DataSelectionStep({
           }
         }
       } catch (err) {
-        console.error("Error fetching row count:", err);
         setError(
           err instanceof Error
             ? err.message

@@ -22,7 +22,7 @@ Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for th
 ## Walkthrough
 
 1) To obtain customer review insights, sync your data to Motherduck with the schema: <code>{ "review_text": "string", "stars": "number" }</code> (More schemas will be supported soon). We recommend using Airbyte due to its extensive list of sources and seamless data movement.
-2) Visit the Analysr website at (growwithanalysr.vercel.app) and click on the "Get Started Now" button.
+2) Visit the Analysr website at (growwithanalysr.web.app) and click on the "Get Started Now" button.
 3) Select your business stack and substack; Groq and queries will use this information to fetch insights.
 4) Input your Motherduck token and wait for the connection to be established (the time required will depend on your network bandwidth).
 5) Select the database and table where your customer reviews or any related reviews exist, and set the data limit.
@@ -50,7 +50,7 @@ Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for th
 - **Visualization**: Recharts
 - **State Management**: Zustand
 - **Animations**: Framer Motion
-- **Hosting**: Firebase (Staging), Vercel (Production)
+- **Hosting**: Firebase (Production), Vercel (Experiment)
 - **CI/CD**: GitHub Actions for automated deployment
 
 

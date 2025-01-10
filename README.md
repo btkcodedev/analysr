@@ -4,17 +4,16 @@
 
 <b>Transform your business with <code>Analysr</code></b>
 
-## 1️⃣ One Liner
+## ⚡ One Liner
 This is my submission for <code>Airbyte-Motherduck Hackathon - December 2024 - January 2025</code>
 
-For all you speedy folks out there, here’s the scoop:
+For all you speedy folks out there, here’s the summary:
 
 - **1.0.0**  
-  With your customer reviews in motherduck, along with your chosen business stack and areas of interest, Analysr is ready to dish out some insightful analytics. And just to sweeten the deal, Groq has stepped in to help you navigate all your growth phases—because who doesn’t want a sidekick in business?
+  - With your customer reviews in Motherduck, along with your chosen business stack and areas of interest, Analysr is ready to dish out some insightful analytics. To sweeten the deal, Groq is also integrated to help you navigate all your growth phases.
+  - Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for those feelings), Advanced Text Analysis, Groq Business Analytics, Keyphrase Analysis, and a handy Competitor Comparison.
 
-Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for those feelings), Advanced Text Analysis, Groq Business Analytics, Keyphrase Analysis, and a handy Competitor Comparison.
-
-## Walkthrough
+## 🚶Walkthrough
 
 1) To obtain customer review insights, sync your data to Motherduck with the schema: <code>{ "review_text": "string", "stars": "number" }</code> (More schemas will be supported soon). We recommend using Airbyte due to its extensive list of sources and seamless data movement. ![image](https://github.com/user-attachments/assets/415aece5-6594-4649-8d84-ec2fa1707988)
 ![image](https://github.com/user-attachments/assets/00bf63f5-952f-491a-9ffd-0241d2e2bfd2)

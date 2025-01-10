@@ -7,7 +7,8 @@ export function useGroqInsights(
   substack?: string,
   analyticsData?: any,
   groqToken?: string,
-  model?: string
+  model?: string,
+  interests?: string,
 ) {
   const [insights, setInsights] = useState<string | null>(null);
   const [status, setStatus] = useState<StatusState>({
@@ -47,6 +48,7 @@ export function useGroqInsights(
           token: groqToken,
           stack,
           substack,
+          interests,
           positiveInsights: analyticsData.positiveInsights,
           negativeInsights: analyticsData.negativeInsights,
           emojiStats: analyticsData.textAnalysis.emojiStats,

@@ -75,7 +75,6 @@ export interface Analytics {
   negativeInsights: NegativeInsight[];
   positiveInsights: PositiveInsight[];
   textAnalysis: TextAnalysis;
-  sentimentTrends: SentimentTrend[];
 }
 
 export type LoadingStageId = (typeof LOADING_STAGES)[keyof typeof LOADING_STAGES];

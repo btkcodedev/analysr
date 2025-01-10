@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { fetchAnalytics } from '../lib/motherduck/queries';
-import { initializeConnection } from '../lib/motherduck/connectionManager';
+import { initializeConnection } from '../lib/motherduck/analyticsConnectionManager';
 import type { Analytics, LoadingStageId } from '../types/analytics';
 import type { DataLimit } from '../components/onboarding/DataSelectionStep';
-import { fetchSentimentTrends } from '../lib/motherduck/queries/sentimentTrends';
 
 export interface LoadingStage {
   id: LoadingStageId;
@@ -102,6 +101,16 @@ export function useAnalytics(
     groqStatus: groqToken ? 'Initializing GROQ...' : 'GROQ token not provided',
   }));
 
+  const updateQueryStats = (query: string) => {
+    setResult((prev) => ({
+      ...prev,
+      queryStats: {
+        count: prev.queryStats.count + 1,
+        lastQuery: query,
+      },
+    }));
+  };
+
   const updateLoadingStage = (
     stageId: LoadingStageId,
     status: LoadingStage['status'],
@@ -119,7 +128,6 @@ export function useAnalytics(
   };
 
   const handleError = (error: unknown, failedStage: LoadingStageId) => {
-    console.error('Analytics error:', error);
     const errorMessage =
       error instanceof Error
         ? error.message
@@ -139,6 +147,21 @@ export function useAnalytics(
         })),
       },
     }));
+  };
+
+  const handleProgress = (_stage: string, progress: number, currentQuery?: string) => {
+    if (currentQuery) {
+      updateQueryStats(currentQuery);
+    }
+
+    if (progress <= 20) {
+      updateLoadingStage(LOADING_STAGES.DATA, 'loading', progress * 2);
+    } else if (progress <= 60) {
+      updateLoadingStage(LOADING_STAGES.DATA, 'loading', 80);
+      updateLoadingStage(LOADING_STAGES.PROCESSING, 'loading', (progress - 20) * 2.5);
+    } else {
+      updateLoadingStage(LOADING_STAGES.VISUALIZATION, 'loading', (progress - 60) * 2.5);
+    }
   };
 
   useEffect(() => {
@@ -164,28 +187,21 @@ export function useAnalytics(
         await initializeConnection();
         if (!isSubscribed) return;
         updateLoadingStage(LOADING_STAGES.CONNECTION, 'complete', 100);
-    
-        updateLoadingStage(LOADING_STAGES.DATA, 'loading', 0);
-        const [analyticsData, sentimentTrends] = await Promise.all([
-          fetchAnalytics(database, tableName, limit),
-          fetchSentimentTrends(database, tableName, limit),
+
+        updateLoadingStage(LOADING_STAGES.DATA, 'loading', 5);
+        setResult(prev => ({
+          ...prev,
+          queryStats: { count: 0, lastQuery: '' }
+        }));
+
+        const [analyticsData] = await Promise.all([
+          fetchAnalytics(database, tableName, limit, handleProgress),
         ]);
-
-        if (!isSubscribed) return;
         updateLoadingStage(LOADING_STAGES.DATA, 'complete', 100);
-
-        updateLoadingStage(LOADING_STAGES.PROCESSING, 'loading', 50);
+        if (!isSubscribed) return;
         const processedData: Analytics = {
           ...analyticsData,
-          sentimentTrends,
         };
-
-        if (!isSubscribed) return;
-        updateLoadingStage(LOADING_STAGES.PROCESSING, 'complete', 100);
-
-        updateLoadingStage(LOADING_STAGES.VISUALIZATION, 'loading', 50);
-        if (!isSubscribed) return;
-        updateLoadingStage(LOADING_STAGES.VISUALIZATION, 'complete', 100);
 
         if (isSubscribed) {
           setResult((prev) => ({

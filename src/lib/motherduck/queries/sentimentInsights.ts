@@ -50,7 +50,7 @@ export async function fetchSentimentInsights(
             'could', 'should', 'about', 'which', 'thing', 'some', 'these'
           )
           GROUP BY word
-          HAVING COUNT(*) >= 5  -- Reduced minimum frequency for testing
+          HAVING COUNT(*) >= 5
         )
         SELECT 
           word as name,
@@ -73,7 +73,7 @@ export async function fetchSentimentInsights(
         sentiment: Number(row.sentiment)
       }));
     } catch (error) {
-      console.error('Sentiment analysis error:', error);
       return [];
     }
   }
+  

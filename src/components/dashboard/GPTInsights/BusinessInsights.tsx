@@ -12,6 +12,7 @@ interface BusinessInsightsProps {
   data: ProcessedAnalytics;
   stack: string;
   substack: string;
+  interests?: string;
   groqToken?: string;
 }
 
@@ -19,6 +20,7 @@ export default function BusinessInsights({
   data,
   stack,
   substack,
+  interests,
   groqToken,
 }: BusinessInsightsProps) {
   const [selectedModel, setSelectedModel] = useState("mixtral-8x7b-32768");
@@ -27,7 +29,8 @@ export default function BusinessInsights({
     substack,
     data,
     groqToken,
-    selectedModel
+    selectedModel,
+    interests
   );
 
   const handleModelChange = (modelId: string) => {

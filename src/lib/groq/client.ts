@@ -16,6 +16,7 @@ export async function generateBusinessInsights({
   token,
   stack,
   substack,
+  interests="",
   positiveInsights,
   negativeInsights,
   emojiStats,
@@ -28,6 +29,7 @@ export async function generateBusinessInsights({
   token: string;
   stack: string;
   substack: string;
+  interests?: string;
   positiveInsights: Array<{
     category: string;
     rating: number;
@@ -55,7 +57,7 @@ export async function generateBusinessInsights({
 }) {
   const client = getGroqClient(token);
   const selectedModel = GROQ_MODELS.find(m => m.id === model) || GROQ_MODELS[0];
-
+  const extraQuery = interests.length ? `Return in favour for these categorys: ${interests}` : '';
   const prompt = `As a business analytics expert for ${stack}, specifically in ${substack}, analyze this data:
 
 Key Metrics:
@@ -89,13 +91,16 @@ Provide three focused sections with exactly 2 actionable points each:
 - [Innovation opportunity from customer sentiment]
 - [Competitive advantage from top performing areas]
 
-Keep each point specific, actionable, and directly tied to the data. Focus on the ${substack} sector specifically.`;
+Keep each point specific, actionable, and directly tied to the data. Focus on the ${substack} sector specifically. ${extraQuery}`;
 
   const completion = await client.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
     model: selectedModel.id,
     temperature: 0.7,
-    max_tokens: Math.min(selectedModel.maxTokens, 768)
+    max_tokens: Math.min(selectedModel.maxTokens, 768),
+    // TODO: For next release
+    // top_p: 0.8, //Focus finetuning
+    // presence_penalty: 0.3 // Diverse insights finetuning
   });
 
   return completion.choices[0]?.message?.content || '';

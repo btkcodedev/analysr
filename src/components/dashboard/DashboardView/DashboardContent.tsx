@@ -15,6 +15,7 @@ interface DashboardContentProps {
   stack?: string;
   substack?: string;
   groqToken?: string;
+  interests?: string;
 }
 
 export default function DashboardContent({
@@ -22,6 +23,7 @@ export default function DashboardContent({
   stack,
   substack,
   groqToken,
+  interests,
 }: DashboardContentProps) {
   if (!analyticsData || !analyticsData.totalReviews || !stack || !substack) {
     return <NoDataFallback />;
@@ -46,6 +48,7 @@ export default function DashboardContent({
           stack={stack}
           substack={substack}
           groqToken={groqToken}
+          interests={interests}
         />
       </Suspense>
 

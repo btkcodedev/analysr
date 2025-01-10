@@ -38,7 +38,6 @@ export async function fetchAvailableModels(token: string): Promise<GroqModel[]> 
       maxTokens: model.context_window || 8192,
     }));
   } catch (error) {
-    console.error('Failed to fetch GROQ models:', error);
     return GROQ_MODELS;
   }
 }

@@ -4,10 +4,10 @@
 
 <b>Transform your business with <code>Analysr</code></b>
 
-## ⚡ One Liner
+## ⚡ Speedy Summary
 This is my submission for <code>Airbyte-Motherduck Hackathon - December 2024 - January 2025</code>
 
-For all you speedy folks out there, here’s the summary:
+Here’s a speedy summary:
 
 - **1.0.0**  
   - With your customer reviews in Motherduck, along with your chosen business stack and areas of interest, Analysr is ready to dish out some insightful analytics. To sweeten the deal, Groq is also integrated to help you navigate all your growth phases.
@@ -19,7 +19,7 @@ For all you speedy folks out there, here’s the summary:
 
 ## 🚶Walkthrough
 
-1) To obtain customer review insights, sync your data to Motherduck with the schema: <code>{ "review_text": "string", "stars": "number" }</code> (More schemas will be supported soon). We recommend using Airbyte due to its extensive list of sources and seamless data movement. ![image](https://github.com/user-attachments/assets/415aece5-6594-4649-8d84-ec2fa1707988)
+1) To obtain customer review insights, sync your data to Motherduck with the schema: <code>{ "review_text": "string", "stars": "number" }</code> (More schemas support are in the future roadmap). We recommend using Airbyte due to its extensive list of sources and seamless data movement. ![image](https://github.com/user-attachments/assets/415aece5-6594-4649-8d84-ec2fa1707988)
 ![image](https://github.com/user-attachments/assets/00bf63f5-952f-491a-9ffd-0241d2e2bfd2)
 2) Visit the Analysr website at (growwithanalysr.web.app) and click on the "Get Started Now" button for onboarding.
 ![image](https://github.com/user-attachments/assets/95da4b69-29bb-4c88-9433-19865bc72093)
@@ -37,14 +37,18 @@ For all you speedy folks out there, here’s the summary:
 8) Finally, input your area of interest for insights, such as customer satisfaction, and click "Continue to Dashboard."![image](https://github.com/user-attachments/assets/3c938fa2-a862-4ba6-b06e-b67bb139e71f)
 9) Wait a few seconds until all queries are executed and visualized.
 ![image](https://github.com/user-attachments/assets/cf22aa51-cdb2-4e3f-99d6-ef93bf8f8c45)
-10) Voilà! Your dashboard will be ready, featuring all Analysr's capabilities to support your next big step!
+10) Voilà! Your dashboard will be ready, featuring all of Analysr's capabilities to support your next big step!
 ![image](https://github.com/user-attachments/assets/1ae1427d-c315-4e02-ac75-158e3cb14d61)
 
-Need dataset and example method to test?
+**Need a dataset and one example method to test?**
 1. Hugging face dataset URL which I used, https://huggingface.co/datasets/Yelp/yelp_review_full
-2. Import it to motherduck via airbyte (Set huggingface as source and motherduck as destination)
-3. Get Groq token at, https://console.groq.com/keys
-4. Click on continue to dashboard! That's it. Please try yourself, its fun!
+2. Import it to Motherduck via Airbyte (Set huggingface as source and Motherduck as destination) OR attach using my share link
+```bash
+-- Run this snippet to attach the database
+ATTACH 'md:_share/my_db/de60469b-3a05-4d74-bf63-4c1549dd55b6';
+```
+3. Get a Groq token at, https://console.groq.com/keys
+4. Click on Continue to the dashboard! That's it. Please try it yourself, it's fun!
 
 ## ✨ Features
 
@@ -55,9 +59,17 @@ Need dataset and example method to test?
 - **Keyphrase Analysis:** Identify and analyze key phrases that matter to your customers.
 - **Competitor Comparison:** Benchmark your performance against competitors.
 
+## ❓ Why Analysr
+
+- **Scale Beyond Regular AI Capabilities:** Traditional AI systems, like ChatGPT, struggle to handle extensive datasets (e.g., 65,000+ records) effectively. Analysr bridges this gap.
+- **Seamless Motherduck, Airbyte, Groq Integration:** Thanks to Motherduck wasm client, Airbyte's API and Groq SDK.
+- **Data-Driven Insights:** By combining AI with visualization tools, Analysr allows users to uncover trends, anomalies, and actionable insights quickly and intuitively.
+- **User-Friendly Visualization:** Visual AI integration transforms raw data into understandable and compelling graphics, enabling better decision-making.
+- **Streamlined Process**: Reduces reliance on multiple tools by offering an all-in-one platform for schema analysis and visualization.
+
 ## 🛠️ Technology Stack
 
-- **Frontend**: React, TypeScript, Tailwind CSS
+- **Frontend**: React, TypeScript, Tailwind CSS, Vite
 - **Analytics**: MotherDuck (DuckDB), GROQ AI
 - **Data Integration**: Airbyte
 - **Visualization**: Recharts
@@ -67,13 +79,13 @@ Need dataset and example method to test?
 - **Proxy**: Supabase edge functions
 - **CI/CD**: GitHub Actions for automated deployment
 
-## Future roadmap
+## 🔮 Future roadmap
 
-- **Microservice for generating queries**: Currently all queries for analytics are highly coupled with code, seperation of concerns to microservice
-  - [x] Create mock express server and deployed as supabase functions
-  - [ ] Separate DuckDB queries for as an api call
+- **Microservice for generating queries**: Currently all queries for analytics are highly coupled with code, separation of concerns to microservice
+  - [x] Create express server proxy and deploy as superbase functions
+  - [ ] Separate DuckDB queries as an API call response
   - [ ] Enhance microservice with GPT Wrapper
-  - [ ] Enhance business insights from Groq: Currently it hallucinates as the mixtral model is not powerful (Requires funding) 
+  - [ ] Improve business insights from Groq: At present, it produces some inaccuracies due to the limitations of the open-source <code>mixtral</code> model, which lacks the necessary funding to enhance its capabilities.
 
 ## 🚀 Getting Started
 

@@ -46,7 +46,7 @@ export default function WelcomeHero() {
           flexDirection: "row",
           alignItems: "center",
         }}
-        className="w-20 mt-8 p-0 md:p-2 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 backdrop-blur-sm border border-white/5 rounded-xl"
+        className="sm:hidden w-20 mt-8 p-0 md:p-2 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 backdrop-blur-sm border border-white/5 rounded-xl"
       >
         <p className="text-gray-200" style={{fontSize: "12px"}}>
           {welcomeScreenData.welcomeSectionVersionBottom}

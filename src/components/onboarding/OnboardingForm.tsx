@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategorySelect from "./CategorySelect";
 import DatabaseConnection from "./DatabaseConnection";
-import { businessCategories } from "../../data/businessCategories";
+import { businessCategories } from "../../config/data/businessCategories";
 import { useOnboardingForm } from "../../hooks/useOnboardingForm";
 import Tooltip from "../common/Tooltip/Tooltip";
 
@@ -172,7 +172,7 @@ export default function OnboardingForm() {
       <div className="space-y-8">
         <div>
           <div className="flex items-center mb-2">
-            <Layers className="mr-2 text-blue-400" />
+            <Layers className="mr-2 text-green-400" />
             <span className="text-lg font-medium">Business Category</span>
             <Tooltip
               content="Select your business type and specific focus area"
@@ -215,10 +215,10 @@ export default function OnboardingForm() {
 
         <label className="block">
           <div className="flex items-center mb-2">
-            <Target className="mr-2 text-blue-400" />
+            <Target className="mr-2 text-amber-400" />
             <span className="text-lg font-medium">Areas of Interest</span>
             <Tooltip
-              content="Add your topic of interest for insights, Ex: 'Customer Satisfaction', will be processed by Groq"
+              content="Add specific topics you're interested in, e.g. 'Customer Satisfaction'. Groq will use this to generate more relevant insights."
               icon={true}
               className="ml-2"
             />

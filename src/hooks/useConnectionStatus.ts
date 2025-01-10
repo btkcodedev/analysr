@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { getConnection } from "./connection";
-import { useTokenStore } from "./tokenStore";
-import type { StatusState } from "../../types/status";
+import { getConnection } from "../lib/motherduck/connection";
+import { useTokenStore } from "../lib/motherduck/tokenStore";
+import type { StatusState } from "../types/status";
 
 export function useConnectionStatus(
   inputToken: string | undefined

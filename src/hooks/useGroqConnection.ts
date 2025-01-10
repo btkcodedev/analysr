@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Groq } from "groq-sdk";
-import type { StatusState } from "../../types/status";
+import type { StatusState } from "../types/status";
 
 export function useGroqConnection(token?: string): StatusState {
   const [status, setStatus] = useState<StatusState>({

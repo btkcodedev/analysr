@@ -6,6 +6,7 @@ import { fetchPositiveInsights } from './positiveInsights';
 import { fetchTextAnalysis } from './textAnalysis';
 import type { ProcessedAnalytics } from '../types';
 import type { DataLimit } from '../../../components/onboarding/DataSelectionStep';
+import { fetchSentimentInsights } from './sentimentInsights';
 
 export async function fetchAnalytics(
   database: string,
@@ -35,13 +36,15 @@ export async function fetchAnalytics(
       aspectAnalysis,
       negativeInsights,
       positiveInsights,
-      textAnalysis
+      textAnalysis,
+      sentimentData
     ] = await Promise.all([
       connection.evaluateQuery(basicStatsQuery),
       fetchAspectAnalysis(database, tableName, limit),
       fetchNegativeInsights(database, tableName, limit),
       fetchPositiveInsights(database, tableName, limit),
-      fetchTextAnalysis(database, tableName, limit)
+      fetchTextAnalysis(database, tableName, limit),
+      fetchSentimentInsights(database, tableName, limit),
     ]);
 
     const stats = basicStats.data.toRows()[0];
@@ -56,7 +59,8 @@ export async function fetchAnalytics(
       aspectAnalysis,
       negativeInsights,
       positiveInsights,
-      textAnalysis
+      textAnalysis,
+      sentimentInsights: sentimentData,
     };
   } catch (error) {
     console.error('Analytics query execution failed:', error);

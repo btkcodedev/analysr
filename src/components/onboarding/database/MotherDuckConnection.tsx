@@ -3,7 +3,7 @@ import { Database, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import StatusIndicator from "../../common/ProgressLoader/StatusIndicator";
 import Tooltip from "../../common/Tooltip/Tooltip";
-import { useConnectionStatus } from "../../../lib/motherduck/useConnectionStatus";
+import { useConnectionStatus } from "../../../hooks/useConnectionStatus";
 import DataSelectionStep from "../DataSelectionStep";
 import type { DataLimit } from "../DataSelectionStep";
 

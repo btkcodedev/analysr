@@ -3,7 +3,7 @@ import { Brain, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import StatusIndicator from "../../common/ProgressLoader/StatusIndicator";
 import Tooltip from "../../common/Tooltip/Tooltip";
-import { useGroqConnection } from "../../../lib/groq/useGroqConnection";
+import { useGroqConnection } from "../../../hooks/useGroqConnection";
 
 interface GroqConnectionProps {
   token?: string;
@@ -32,7 +32,7 @@ export default function GroqConnection({
   return (
     <div>
       <div className="flex items-center mb-2">
-        <Brain className="mr-2 text-purple-400" />
+        <Brain className="mr-2 text-red-400" />
         <span className="text-lg font-medium">GROQ Configuration</span>
         <Tooltip
           content="Add a GROQ token to enable AI-powered insights. This is optional but recommended for enhanced analytics"

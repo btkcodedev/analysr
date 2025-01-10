@@ -30,7 +30,7 @@ export default function AirbyteConfig({
         <Database className="mr-2 text-purple-400" />
         <p className="text-lg font-medium">Optional Airbyte Configuration</p>
         <Tooltip
-          content="Configure Airbyte integration to sync data from external sources"
+          content="Configure Airbyte integration to trigger sync from external sources"
           icon={true}
           className="ml-2"
         />
@@ -73,7 +73,7 @@ export default function AirbyteConfig({
             }`}
           />
           <Tooltip
-            content="The unique identifier for your Airbyte connection"
+            content="Find your unique Airbyte connection ID in the connections tab on https://cloud.airbyte.com/"
             icon={true}
             className="absolute right-3 top-1/2 -translate-y-1/2"
           />

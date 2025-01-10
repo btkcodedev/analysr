@@ -1,6 +1,12 @@
 import type { AirbyteConfig, SyncJobResponse } from "./types";
+import { getAirbyteApiUrl } from "../../config/services";
 
-const API_BASE_URL = "/api/airbyte";
+const noCacheHeaders = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
+  'X-Request-Timestamp': Date.now().toString(),
+};
 
 export async function checkConnectionStatus(
   config: AirbyteConfig
@@ -8,11 +14,12 @@ export async function checkConnectionStatus(
   try {
     if (!config.bearerToken) {
       throw new Error("Bearer token is required");
-    }
-
-    const response = await fetch(`${API_BASE_URL}/sources`, {
+    } 
+    const url = getAirbyteApiUrl()
+    const response = await fetch(`${url}/sources?_=${Date.now()}`, {
       method: "GET",
       headers: {
+        ...noCacheHeaders,
         authorization: `Bearer ${config.bearerToken}`,
         accept: "application/json",
       },
@@ -22,8 +29,7 @@ export async function checkConnectionStatus(
       throw new Error(`Connection check failed: ${response.statusText}`);
     }
 
-    const data = await response.json();
-    console.log(data);
+    await response.json();
     return response.ok;
   } catch (error) {
     console.error("Connection check error:", error);
@@ -40,9 +46,11 @@ export async function triggerJob(
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/jobs`, {
+    const url = getAirbyteApiUrl()
+    const response = await fetch(`${url}/jobs?_=${Date.now()}`, {
       method: "POST",
       headers: {
+        ...noCacheHeaders,
         authorization: `Bearer ${config.bearerToken}`,
         accept: "application/json",
         "content-type": "application/json",

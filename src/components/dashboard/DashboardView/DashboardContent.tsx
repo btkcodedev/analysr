@@ -26,7 +26,6 @@ export default function DashboardContent({
   if (!analyticsData || !analyticsData.totalReviews || !stack || !substack) {
     return <NoDataFallback />;
   }
-
   return (
     <div className="max-w-7xl mx-auto space-y-6 px-4 sm:px-6">
       <Suspense
@@ -85,7 +84,7 @@ export default function DashboardContent({
             <div className="h-96 bg-gray-800/50 rounded-xl animate-pulse" />
           }
         >
-          <SentimentHeatmap />
+          <SentimentHeatmap data={analyticsData.sentimentInsights!}/>
         </Suspense>
       </div>
       <Suspense

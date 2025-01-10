@@ -33,7 +33,6 @@ Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for th
 10) Voilà! Your dashboard will be ready, featuring all the capabilities of Analysr to support your next big step!
 
 
-
 ## ✨ Features
 
 - **Aspect Analysis:** Gain insights into different aspects of customer feedback.
@@ -53,6 +52,15 @@ Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for th
 - **Animations**: Framer Motion
 - **Hosting**: Firebase (Staging), Vercel (Production)
 - **CI/CD**: GitHub Actions for automated deployment
+
+
+## Future roadmap
+
+- **Microservice for generating queries**: Currently all queries for analytics are highly coupled with code, seperation of concerns to microservice
+  - [*] Create mock express server and deployed as supabase functions
+  - [] Separate DuckDB queries for as an api call
+  - [] Enhance microservice with GPT Wrapper
+  - [] Enhance business insights from groq: Currently it hallucinates as the mixtral model is not powerful (Requires funding) 
 
 ## 🚀 Getting Started
 

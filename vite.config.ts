@@ -3,9 +3,9 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { fixRequestBody } from "http-proxy-middleware";
 import {
-  AIRBYTE_API_PROXY_URL as AB_PROX,
+  AIRBYTE_LOCAL_PROXY_URL as AB_PROX,
   AIRBYTE_API_BASE_URL as AB_BASE,
-  GROQ_API_PROXY_URL as GROQ_PROX,
+  GROQ_LOCAL_PROXY_URL as GROQ_PROX,
   GROQ_API_BASE_URL as GROQ_BASE,
 } from "./src/config/services/index";
 

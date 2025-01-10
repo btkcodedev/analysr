@@ -24,13 +24,30 @@ export async function fetchAnalytics(
 
   try {
     const basicStatsQuery = `
-      ${sampleClause}
+    ${sampleClause},
+    rating_metrics AS (
       SELECT 
         COUNT(*) as total_reviews,
         AVG(CAST(stars as DOUBLE)) as avg_rating,
-        (CAST(COUNT(CASE WHEN stars >= 4 THEN 1 END) as DOUBLE) * 100.0 / NULLIF(COUNT(*), 0)) as sentiment_score
+        PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY stars) as median_rating,
+        (CAST(COUNT(CASE WHEN stars >= 4 THEN 1 END) as DOUBLE) * 100.0 / NULLIF(COUNT(*), 0)) as sentiment_score,
+        -- Getting recent average (last 20% of reviews)
+        (SELECT AVG(CAST(stars as DOUBLE))
+         FROM (
+           SELECT stars
+           FROM sample_data
+           LIMIT (SELECT COUNT(*) * 0.2 FROM sample_data)
+         )) as recent_avg_rating
       FROM sample_data
-    `;
+    )
+    SELECT 
+      total_reviews,
+      avg_rating,
+      sentiment_score,
+      -- Calculating relative performance using recent vs overall trend
+      ((recent_avg_rating / NULLIF(avg_rating, 0)) - 1) * 100 as market_position
+    FROM rating_metrics
+  `;
 
     onProgress?.('Basic Statistics', 10, basicStatsQuery);
     const basicStats = await connection.evaluateQuery(basicStatsQuery);
@@ -56,14 +73,11 @@ export async function fetchAnalytics(
     onProgress?.('Text Analysis', 100);
 
     const stats = basicStats.data.toRows()[0];
-    const industryAverage = 3.5;
-    const competitorComparison = ((Number(stats.avg_rating) / industryAverage) - 1) * 100;
-
     return {
       totalReviews: Number(stats.total_reviews),
       averageRating: Number(stats.avg_rating) || 0,
       sentimentScore: Number(stats.sentiment_score) || 0,
-      competitorComparison,
+      competitorComparison: Number(stats.market_position) || 0,
       aspectAnalysis,
       negativeInsights,
       positiveInsights,

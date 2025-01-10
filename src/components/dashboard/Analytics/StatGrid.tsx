@@ -31,7 +31,7 @@ export default function StatGrid({ analyticsData }: StatGridProps) {
       color: "purple",
     },
     {
-      title: "Competitor Comparison",
+      title: "Competitive Advantage",
       value: `${
         analyticsData.competitorComparison > 0 ? "+" : ""
       }${analyticsData.competitorComparison.toFixed(1)}%`,

@@ -2,16 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fixRequestBody } from 'http-proxy-middleware';
+import { AIRBYTE_API_PROXY_URL, AIRBYTE_API_BASE_URL, GROQ_API_PROXY_URL, GROQ_API_BASE_URL } from './src/config/services/index';
 
-export const AIRBYTE_API_PROXY_URL = "/api/airbyte";
-export const AIRBYTE_API_BASE_URL = "https://api.airbyte.com/v1";
-export const GROQ_API_PROXY_URL = "/api/groq";
-export const GROQ_API_BASE_URL = "https://api.groq.com/v1";
-
-// const cacheBuster = (url: string | undefined) => {
-//   const timestamp = new Date().getTime();
-//   return `${url}?v=${timestamp}`;
-// };
+const cacheBuster = (url: string | undefined) => {
+  const timestamp = new Date().getTime();
+  return `${url}?v=${timestamp}`;
+};
 
 export default defineConfig({
   plugins: [react()],
@@ -46,20 +42,19 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // build: {
-  //   rollupOptions: {
-  //     output: {
-  //       // Use a cache-busting filename pattern for output files
-  //       entryFileNames: (chunkInfo) => {
-  //         return cacheBuster(chunkInfo.name);
-  //       },
-  //       chunkFileNames: (chunkInfo) => {
-  //         return cacheBuster(chunkInfo.name);
-  //       },
-  //       assetFileNames: (assetInfo) => {
-  //         return cacheBuster(assetInfo.name);
-  //       },
-  //     },
-  //   },
-  // },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: (chunkInfo) => {
+          return cacheBuster(chunkInfo.name);
+        },
+        chunkFileNames: (chunkInfo) => {
+          return cacheBuster(chunkInfo.name);
+        },
+        assetFileNames: (assetInfo) => {
+          return cacheBuster(assetInfo.name);
+        },
+      },
+    },
+  },
 });

@@ -90,7 +90,7 @@ ATTACH 'md:_share/my_db/de60469b-3a05-4d74-bf63-4c1549dd55b6';
 
 ## 🔮 Future roadmap
 
-- **Microservice for generating queries**: Currently all queries for analytics are highly coupled with code, separation of concerns to microservice
+- **Microservice for generating queries**: Currently all queries for analytics are highly coupled with code, separation of concerns and transition to microservice is required
   - [x] Create express server proxy and deploy as superbase functions
   - [ ] Separate DuckDB queries as an API call response
   - [ ] Enhance microservice with GPT Wrapper
@@ -138,5 +138,5 @@ For questions and support, please open an issue or contact at btk.codedev@gmail.
 ---
 
 <div align="center">
-  <strong>Built with ❤️ for growing businesses by bktcodedev</strong>
+  <strong>Built with ❤️ for growing businesses by [btkcodedev](https://github.com/btkcodedev)</strong>
 </div>

@@ -14,7 +14,7 @@ Here’s a speedy summary:
   - Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for those feelings), Advanced Text Analysis, Groq Business Analytics, Keyphrase Analysis, and a handy Competitor Comparison.
   - Check it out at:
     - <code>[https://growwithanalysr.web.app/](https://growwithanalysr.web.app/) - Production</code>
-    - <code>[https://growwithanalysr.vercel.app/](https://growwithanalysr-staging.vercel.app/) - Experimental, for new features</code>
+    - <code>[https://growwithanalysr-staging.vercel.app/](https://growwithanalysr-staging.vercel.app/) - Experimental, for new features</code>
 
 ## 🏗️ Architecture
 ![image](https://github.com/user-attachments/assets/0abe96f6-414a-42d2-aa0d-d0950a7da194)

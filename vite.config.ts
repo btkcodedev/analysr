@@ -11,10 +11,6 @@ import {
 
 export default defineConfig(({ mode }) => {
   loadEnv(mode, process.cwd(), "");
-  const AIRBYTE_API_PROXY_URL = AB_PROX;
-  const AIRBYTE_API_BASE_URL = AB_BASE;
-  const GROQ_API_PROXY_URL = GROQ_PROX;
-  const GROQ_API_BASE_URL = GROQ_BASE;
   return {
     plugins: [react()],
     server: {
@@ -29,8 +25,8 @@ export default defineConfig(({ mode }) => {
         Expires: "0",
       },
       proxy: {
-        [AIRBYTE_API_PROXY_URL]: {
-          target: AIRBYTE_API_BASE_URL,
+        [AB_PROX]: {
+          target: AB_BASE,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/airbyte/, ""),
           configure: (proxy, _options) => {
@@ -52,8 +48,8 @@ export default defineConfig(({ mode }) => {
             });
           },
         },
-        [GROQ_API_PROXY_URL]: {
-          target: GROQ_API_BASE_URL,
+        [GROQ_PROX]: {
+          target: GROQ_BASE,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/groq/, ""),
           configure: (proxy, _options) => {

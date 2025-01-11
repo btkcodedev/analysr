@@ -11,10 +11,13 @@ Here’s a speedy summary:
 
 - **1.0.0**  
   - With your customer reviews in Motherduck, along with your chosen business stack and areas of interest, Analysr is ready to dish out some insightful analytics. To sweeten the deal, Groq is also integrated to help you navigate all your growth phases.
-  - Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for those feelings), Advanced Text Analysis, Groq Business Analytics, Keyphrase Analysis, and a handy Competitor Comparison.
+  - Your analytics lineup features Aspect Analysis, a Word Sentiment Heatmap (for those feelings), Advanced Text Analysis, Groq Business Analytics, Keyphrase Analysis, and a handy Competitive Advantage.
   - Check it out at:
     - <code>[https://growwithanalysr.web.app/](https://growwithanalysr.web.app/) - Production</code>
-    - <code>[https://growwithanalysr.vercel.app/](https://growwithanalysr-staging.vercel.app/) - Experimental, for new features</code>
+    - <code>[https://growwithanalysr-staging.vercel.app/](https://growwithanalysr-staging.vercel.app/) - Experimental, for new features</code>
+
+## 📽️ Demonstration video
+[![Analysr Demo](https://img.youtube.com/vi/K7LROVzU16A/0.jpg)](https://www.youtube.com/watch?v=K7LROVzU16A)
 
 ## 🏗️ Architecture
 ![image](https://github.com/user-attachments/assets/0abe96f6-414a-42d2-aa0d-d0950a7da194)
@@ -69,7 +72,7 @@ ATTACH 'md:_share/my_db/de60469b-3a05-4d74-bf63-4c1549dd55b6';
 - **Advanced Text Analysis:** Delve deeper into the nuances of customer language.
 - **Groq Business Analytics:** Access data-driven insights to inform your growth strategy.
 - **Keyphrase Analysis:** Identify and analyze key phrases that matter to your customers.
-- **Competitor Comparison:** Benchmark your performance against competitors.
+- **Competitive advantage:** Benchmark your reviews to know your current positive/negative sentiment advantage.
 
 ## 🛠️ Technology Stack
 

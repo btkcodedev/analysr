@@ -138,5 +138,6 @@ For questions and support, please open an issue or contact at btk.codedev@gmail.
 ---
 
 <div align="center">
-  <strong>Built with ❤️ for growing businesses by [btkcodedev](https://github.com/btkcodedev)</strong>
+  <strong>Built with ❤️ for growing businesses by</strong> 
+  <a href="https://github.com/btkcodedev" target="_blank" rel="noopener noreferrer">btkcodedev</a>
 </div>
